@@ -1,0 +1,36 @@
+/*
+ * sublime dark rgb(40,41,35)
+ * sublime light rgb(109,110,106)
+ * sublime medium rgb(66,67,62) 
+*/
+
+.root {
+	-fx-background-color: rgb(40,41,35);
+}
+
+#mainMenuBar {
+	-fx-background-color: rgb(109,110,106); 
+	-fx-text-fill: #FFFFFF;
+	/*-fx-focus-color: #FFFFFF;*/
+	-fx-accent: rgb(66,67,62);
+}
+
+
+#fileMenu .label, #settingsMenu .label, #helpMenu .label {
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 16px;
+	-fx-focus-color: #FFFFFF;
+	-fx-accent: #FFFFFF;
+	-fx-padding: 15 0 15 0;
+}
+
+#fileMenu .context-menu, #settingsMenu .context-menu, #helpMenu .context-menu {
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: rgb(109,110,106);
+	/*-fx-focus-color: #FFFFFF;*/
+	-fx-accent: rgb(66,67,62);
+}
+
+#saveButton, #redoButton, #undoButton {
+	-fx-background-color: rgb(109,110,106);
+}

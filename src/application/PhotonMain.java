@@ -18,6 +18,7 @@ public class PhotonMain extends Application {
 		Parent mainRoot = mainLoader.load();
 		Scene mainScene = new Scene(mainRoot);
 		
+		mainScene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
 		primaryStage.setScene(mainScene);
 		primaryStage.setTitle("Photon Editor");
 		primaryStage.show();
