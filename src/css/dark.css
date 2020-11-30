@@ -31,6 +31,10 @@
 	-fx-accent: rgb(66,67,62);
 }
 
+#fileMenu .menu-item, #settingsMenu .menu-item, #helpMenu .menu-item {
+	-fx-padding: 5 40 5 10;
+}
+
 #saveButton, #redoButton, #undoButton {
 	-fx-background-color: rgb(109,110,106);
 }
