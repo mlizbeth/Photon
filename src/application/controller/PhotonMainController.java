@@ -3,14 +3,19 @@ package application.controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
 
 	@FXML
-	private Button saveButton, undoButton, redoButton; 
+	private Button saveButton, undoButton, redoButton, settingsButton; 
 	
 	private Image saveImage, undoImage, redoImage;
 	
@@ -50,6 +55,21 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		redoImage.setFitHeight(25);
 		redoImage.setFitWidth(25);
 		redoButton.setGraphic(redoImage);
+	}
+	
+	public void settingsButtonPushed(ActionEvent event) throws IOException {
+		
+		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
+		Parent settingsViewParent = settingsLoader.load();
+		Scene settingsViewScene = new Scene(settingsViewParent);
+		
+		//gets stage information
+		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		window.setScene(settingsViewScene);
+		window.setTitle("Settings");
+		window.show();
+		
 	}
 
 }
