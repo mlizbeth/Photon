@@ -22,15 +22,34 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	
 	@FXML
 	void initialize() {
-		saveImage = new Image(getClass().getResourceAsStream("/img/save.png"));
-		saveButton.setGraphic(new ImageView(saveImage));
 		
-		undoImage = new Image(getClass().getResourceAsStream("/img/undo-50.png"));
-		undoButton.setGraphic(new ImageView(undoImage));
+		initalizeImages();
+			
+	}
+	
+	private void initalizeImages() {
 		
-		redoImage = new Image(getClass().getResourceAsStream("/img/redo-50.png"));
-		redoButton.setGraphic(new ImageView(redoImage));
-
+		/*
+		 * old
+		 * 
+		 * saveImage = new Image(getClass().getResourceAsStream("/img/save.png"));
+		 * saveButton.setGraphic(new ImageView(saveImage));
+		 */
+		
+		ImageView saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save.png")));
+		saveImage.setFitHeight(25);
+		saveImage.setFitWidth(25);
+		saveButton.setGraphic(saveImage);
+		
+		ImageView undoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/undo-50.png")));
+		undoImage.setFitHeight(25);
+		undoImage.setFitWidth(25);
+		undoButton.setGraphic(undoImage);
+		
+		ImageView redoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/redo-50.png")));
+		redoImage.setFitHeight(25);
+		redoImage.setFitWidth(25);
+		redoButton.setGraphic(redoImage);
 	}
 
 }

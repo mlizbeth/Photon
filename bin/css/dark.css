@@ -21,7 +21,7 @@
 	-fx-font-size: 16px;
 	-fx-focus-color: #FFFFFF;
 	-fx-accent: #FFFFFF;
-	-fx-padding: 15 0 15 0;
+	-fx-padding: 5 0 5 0;
 }
 
 #fileMenu .context-menu, #settingsMenu .context-menu, #helpMenu .context-menu {
