@@ -10,13 +10,20 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="460.0" prefWidth="69.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar id="toolsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="71.0">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Tools" />
+               </menus>
+            </MenuBar>
+         </children></VBox>
    </left>
    <right>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="101.0" prefWidth="702.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />

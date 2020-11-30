@@ -22,6 +22,7 @@ public class PhotonMain extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.setTitle("Photon Editor");
 		primaryStage.show();
+		primaryStage.setResizable(false);
 		
 	}
 }

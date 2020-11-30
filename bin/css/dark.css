@@ -15,6 +15,17 @@
 	-fx-accent: rgb(66,67,62);
 }
 
+#toolsMenu {
+	-fx-background-color: rgb(63,63,63);
+	-fx-accent: rgb(63,63,63);
+	-fx-text-fill: #FFFFFF;
+}
+
+
+#toolsMenu .label {
+	-fx-text-fill: #FFFFFF;
+}
+
 
 #fileMenu .label, #settingsMenu .label, #helpMenu .label {
 	-fx-text-fill: #FFFFFF;
