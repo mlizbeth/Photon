@@ -30,9 +30,9 @@
               <MenuItem id="fileMenuItemClose" mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu id="settingsMenu" mnemonicParsing="false" text="Settings">
+          <Menu id="settingsMenu" mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Settings" />
             </items>
           </Menu>
           <Menu id="helpMenu" mnemonicParsing="false" text="Help">
