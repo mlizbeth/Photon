@@ -8,6 +8,18 @@
 	-fx-background-color: rgb(40,41,35);
 }
 
+#toolsVBox, #rightGridPane, #bottomGridPane {
+	-fx-border-color: red;
+}
+
+#objectHBox {
+	-fx-border-color: blue;
+}
+
+#bottomLeftAnchorPane, #bottomRightAnchorPane {
+	-fx-border-color: blue;
+}
+
 #mainMenuBar {
 	-fx-background-color: rgb(109,110,106); 
 	-fx-text-fill: #FFFFFF;
@@ -15,15 +27,16 @@
 	-fx-accent: rgb(66,67,62);
 }
 
-#toolsMenu {
+#toolsMenu, #objectsMenu, #propertyMenu, #layersMenu, #colorsMenu {
 	-fx-background-color: rgb(63,63,63);
 	-fx-accent: rgb(63,63,63);
 	-fx-text-fill: #FFFFFF;
 }
 
 
-#toolsMenu .label {
+#toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
 	-fx-text-fill: #FFFFFF;
+	-fx-padding: 0 0 0 -10;
 }
 
 

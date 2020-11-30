@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class PhotonMain extends Application {
@@ -21,6 +22,7 @@ public class PhotonMain extends Application {
 		mainScene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
 		primaryStage.setScene(mainScene);
 		primaryStage.setTitle("Photon Editor");
+		primaryStage.getIcons().add(new Image("file:src/img/icon.jpg"));
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		

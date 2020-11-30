@@ -1,5 +1,7 @@
 package application.controller;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Button saveButton, undoButton, redoButton, settingsButton; 
 	
-	private Image saveImage, undoImage, redoImage;
+	private ImageView saveImage, undoImage, redoImage;
 	
 	@Override
 	public void handle(ActionEvent event) {
@@ -36,22 +38,21 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		/*
 		 * old
-		 * 
 		 * saveImage = new Image(getClass().getResourceAsStream("/img/save.png"));
 		 * saveButton.setGraphic(new ImageView(saveImage));
 		 */
 		
-		ImageView saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save.png")));
+		saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save.png")));
 		saveImage.setFitHeight(25);
 		saveImage.setFitWidth(25);
 		saveButton.setGraphic(saveImage);
 		
-		ImageView undoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/undo-50.png")));
+		undoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/undo-50.png")));
 		undoImage.setFitHeight(25);
 		undoImage.setFitWidth(25);
 		undoButton.setGraphic(undoImage);
 		
-		ImageView redoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/redo-50.png")));
+		redoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/redo-50.png")));
 		redoImage.setFitHeight(25);
 		redoImage.setFitWidth(25);
 		redoButton.setGraphic(redoImage);
