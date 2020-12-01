@@ -8,16 +8,45 @@
 	-fx-background-color: rgb(40,41,35);
 }
 
-#toolsVBox, #rightGridPane, #bottomGridPane {
-	-fx-border-color: red;
+#toolsVBox {
+	-fx-border-color: rgb(63,63,63);
+	-fx-background-color: rgb(40,41,35);
+	-fx-border-width: 2;
+}
+
+
+#rightGridPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#bottomGridPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#bottomLeftAnchorPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#bottomRightAnchorPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
 }
 
 #objectHBox {
-	-fx-border-color: blue;
+	
 }
 
-#bottomLeftAnchorPane, #bottomRightAnchorPane {
-	-fx-border-color: blue;
+#propetyHBox {
+	-fx-border-color: rgb(63,63,63);
+}
+
+#toolsVBox .button {
+	-fx-background-color: rgb(40,41,35); 
+	-fx-accent: #FFFFFF;
+	-fx-focus-color: #FFFFFF;
 }
 
 #mainMenuBar {
@@ -61,4 +90,6 @@
 
 #saveButton, #redoButton, #undoButton {
 	-fx-background-color: rgb(109,110,106);
+	-fx-accent: #FFFFFF;
+	-fx-focus-color: #FFFFFF;
 }

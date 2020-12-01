@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.media.*?>
@@ -8,20 +9,46 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
    <left>
       <VBox id="toolsVBox" prefHeight="460.0" prefWidth="69.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar id="toolsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="71.0">
+            <MenuBar id="toolsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0">
                <menus>
                   <Menu mnemonicParsing="false" text="Tools" />
                </menus>
             </MenuBar>
+            <Button id="selectorTool" fx:id="selectorTool" mnemonicParsing="false" onAction="#handle">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button id="dropperTool" fx:id="dropperTool" mnemonicParsing="false">
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button id="bucketTool" fx:id="bucketTool" mnemonicParsing="false">
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button id="brushTool" fx:id="brushTool" mnemonicParsing="false">
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button id="eraserTool" fx:id="eraserTool" mnemonicParsing="false">
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button id="stampTool" fx:id="stampTool" mnemonicParsing="false">
+               <VBox.margin>
+                  <Insets left="25.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" text="Brush Size" />
          </children></VBox>
    </left>
-   <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
    <top>
       <MenuBar id="mainMenuBar" BorderPane.alignment="CENTER">
         <menus>
@@ -80,7 +107,7 @@
          <children>
             <AnchorPane id="bottomLeftAnchorPane" prefHeight="101.0" prefWidth="400.0">
                <children>
-                  <MenuBar id="layersMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="400.0">
+                  <MenuBar id="layersMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
                         <Menu mnemonicParsing="false" text="Layers" />
                      </menus>
@@ -88,7 +115,7 @@
                </children></AnchorPane>
             <AnchorPane id="bottomRightAnchorPane" prefHeight="101.0" prefWidth="400.0" GridPane.columnIndex="1">
                <children>
-                  <MenuBar id="colorsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="400.0">
+                  <MenuBar id="colorsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
                         <Menu mnemonicParsing="false" text="Colors" />
                      </menus>
@@ -98,7 +125,7 @@
       </GridPane>
    </bottom>
    <right>
-      <GridPane id="rightGridPane" BorderPane.alignment="CENTER">
+      <GridPane id="rightGridPane" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -109,7 +136,7 @@
          <children>
             <HBox id="objectHBox" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0">
+                  <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
                      <menus>
                         <Menu mnemonicParsing="false" text="Objects" />
                      </menus>
@@ -118,7 +145,7 @@
             </HBox>
             <VBox id="propertyVBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <MenuBar id="propertyMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0">
+                  <MenuBar id="propertyMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
                      <menus>
                         <Menu mnemonicParsing="false" text="Properties" />
                      </menus>
@@ -128,4 +155,16 @@
          </children>
       </GridPane>
    </right>
+   <center>
+      <Pane id="drawZonePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane layoutX="-1.0" layoutY="-1.0" prefHeight="660.0" prefWidth="900.0">
+               <children>
+                  <Canvas id="drawCanvas" fx:id="drawZone" height="600.0" width="750.0" />
+                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+         </children>
+      </Pane>
+   </center>
 </BorderPane>
