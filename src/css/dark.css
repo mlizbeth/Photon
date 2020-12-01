@@ -8,12 +8,17 @@
 	-fx-background-color: rgb(40,41,35);
 }
 
+#saveButton, #redoButton, #undoButton {
+	-fx-background-color: rgb(109,110,106);
+	-fx-accent: #FFFFFF;
+	-fx-focus-color: #FFFFFF;
+}
+
 #toolsVBox {
 	-fx-border-color: rgb(63,63,63);
 	-fx-background-color: rgb(40,41,35);
 	-fx-border-width: 2;
 }
-
 
 #rightGridPane {
 	-fx-border-color: rgb(63,63,63);
@@ -62,12 +67,10 @@
 	-fx-text-fill: #FFFFFF;
 }
 
-
 #toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
 	-fx-text-fill: #FFFFFF;
 	-fx-padding: 0 0 0 -10;
 }
-
 
 #fileMenu .label, #settingsMenu .label, #helpMenu .label {
 	-fx-text-fill: #FFFFFF;
@@ -86,10 +89,4 @@
 
 #fileMenu .menu-item, #settingsMenu .menu-item, #helpMenu .menu-item {
 	-fx-padding: 5 40 5 10;
-}
-
-#saveButton, #redoButton, #undoButton {
-	-fx-background-color: rgb(109,110,106);
-	-fx-accent: #FFFFFF;
-	-fx-focus-color: #FFFFFF;
 }

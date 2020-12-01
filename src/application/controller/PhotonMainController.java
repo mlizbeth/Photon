@@ -68,12 +68,12 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		saveImage.setFitWidth(25);
 		saveButton.setGraphic(saveImage);
 		
-		undoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/undo-50.png")));
+		undoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/undo-white.png")));
 		undoImage.setFitHeight(25);
 		undoImage.setFitWidth(25);
 		undoButton.setGraphic(undoImage);
 		
-		redoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/redo-50.png")));
+		redoImage = new ImageView(new Image(getClass().getResourceAsStream("/img/redo-white.png")));
 		redoImage.setFitHeight(25);
 		redoImage.setFitWidth(25);
 		redoButton.setGraphic(redoImage);
@@ -103,7 +103,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		eraserToolImage.setFitWidth(30);
 		eraserTool.setGraphic(eraserToolImage);
 		
-		stampToolImage = new ImageView(new Image(getClass().getResourceAsStream("/img/stamp.png")));
+		stampToolImage = new ImageView(new Image(getClass().getResourceAsStream("/img/text-white.png")));
 		stampToolImage.setFitHeight(30);
 		stampToolImage.setFitWidth(30);
 		stampTool.setGraphic(stampToolImage);
