@@ -1,0 +1,95 @@
+/*
+ * sublime dark rgb(40,41,35)
+ * sublime light rgb(109,110,106)
+ * sublime medium rgb(66,67,62) 
+*/
+
+.root {
+	-fx-background-color: rgb(40,41,35);
+}
+
+#toolsVBox {
+	-fx-border-color: rgb(63,63,63);
+	-fx-background-color: rgb(40,41,35);
+	-fx-border-width: 2;
+}
+
+
+#rightGridPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#bottomGridPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#bottomLeftAnchorPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#bottomRightAnchorPane {
+	-fx-border-color: rgb(63,63,63);
+	-fx-border-width: 2;
+}
+
+#objectHBox {
+	
+}
+
+#propetyHBox {
+	-fx-border-color: rgb(63,63,63);
+}
+
+#toolsVBox .button {
+	-fx-background-color: rgb(40,41,35); 
+	-fx-accent: #FFFFFF;
+	-fx-focus-color: #FFFFFF;
+}
+
+#mainMenuBar {
+	-fx-background-color: rgb(109,110,106); 
+	-fx-text-fill: #FFFFFF;
+	/*-fx-focus-color: #FFFFFF;*/
+	-fx-accent: rgb(66,67,62);
+}
+
+#toolsMenu, #objectsMenu, #propertyMenu, #layersMenu, #colorsMenu {
+	-fx-background-color: rgb(63,63,63);
+	-fx-accent: rgb(63,63,63);
+	-fx-text-fill: #FFFFFF;
+}
+
+
+#toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
+	-fx-text-fill: #FFFFFF;
+	-fx-padding: 0 0 0 -10;
+}
+
+
+#fileMenu .label, #settingsMenu .label, #helpMenu .label {
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 16px;
+	-fx-focus-color: #FFFFFF;
+	-fx-accent: #FFFFFF;
+	-fx-padding: 5 0 5 0;
+}
+
+#fileMenu .context-menu, #settingsMenu .context-menu, #helpMenu .context-menu {
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: rgb(109,110,106);
+	/*-fx-focus-color: #FFFFFF;*/
+	-fx-accent: rgb(66,67,62);
+}
+
+#fileMenu .menu-item, #settingsMenu .menu-item, #helpMenu .menu-item {
+	-fx-padding: 5 40 5 10;
+}
+
+#saveButton, #redoButton, #undoButton {
+	-fx-background-color: rgb(109,110,106);
+	-fx-accent: #FFFFFF;
+	-fx-focus-color: #FFFFFF;
+}
