@@ -131,6 +131,10 @@
                         <Menu mnemonicParsing="false" text="Filter Settings (WIP)" />
                      </menus>
                   </MenuBar>
+                  <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" text="Filter 1" />
+                  <Button layoutX="121.0" layoutY="39.0" mnemonicParsing="false" text="Filter 2" />
+                  <Button layoutX="222.0" layoutY="39.0" mnemonicParsing="false" text="Filter 3" />
+                  <Button layoutX="322.0" layoutY="39.0" mnemonicParsing="false" text="Filter 4" />
                </children></AnchorPane>
          </children>
       </GridPane>
