@@ -35,6 +35,8 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	
 	@FXML
 	private Button saveButton, undoButton, redoButton, settingsButton, dropperTool, bucketTool, selectorTool, brushTool, eraserTool, stampTool; 
+	@FXML
+	private Button circleTool, squareTool, triangleTool;
 	
 	@FXML
 	private Canvas drawZone;
@@ -48,6 +50,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
 	
 	private ImageView saveImage, undoImage, redoImage, selectorToolImage, dropperToolImage, bucketToolImage, brushToolImage, eraserToolImage, stampToolImage;
+	private ImageView circleToolImage, squareToolImage, triangleToolImage;
 	
 	@Override
 	public void handle(ActionEvent event) {
@@ -127,6 +130,20 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		stampToolImage.setFitWidth(30);
 		stampTool.setGraphic(stampToolImage);
 		
+		circleToolImage = new ImageView(new Image(getClass().getResourceAsStream("/img/circle.png")));
+		circleToolImage.setFitHeight(50);
+		circleToolImage.setFitWidth(50);
+		circleTool.setGraphic(circleToolImage);
+		
+		squareToolImage = new ImageView(new Image(getClass().getResourceAsStream("/img/square.png")));
+		squareToolImage.setFitHeight(50);
+		squareToolImage.setFitWidth(50);
+		squareTool.setGraphic(squareToolImage);
+		
+		triangleToolImage = new ImageView(new Image(getClass().getResourceAsStream("/img/triangle.png")));
+		triangleToolImage.setFitHeight(50);
+		triangleToolImage.setFitWidth(50);
+		triangleTool.setGraphic(triangleToolImage);
 		
 	}
 	

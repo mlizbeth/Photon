@@ -48,6 +48,10 @@
 	-fx-border-color: rgb(63,63,63);
 }
 
+#circleToolButton, #squareToolButton, #triangleToolButton {
+	-fx-background-color: rgb(40,41,35); 
+}
+
 #toolsVBox .button {
 	-fx-background-color: rgb(40,41,35); 
 	-fx-accent: #FFFFFF;

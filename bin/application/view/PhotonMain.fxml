@@ -109,7 +109,7 @@
                <children>
                   <MenuBar id="layersMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Layers (WIP)" />
+                        <Menu mnemonicParsing="false" text="Paintbrush Settings (WIP)" />
                      </menus>
                   </MenuBar>
                </children></AnchorPane>
@@ -117,7 +117,7 @@
                <children>
                   <MenuBar id="colorsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Paintbrush Settings (WIP)" />
+                        <Menu mnemonicParsing="false" text="Filter Settings (WIP)" />
                      </menus>
                   </MenuBar>
                </children></AnchorPane>
@@ -187,9 +187,9 @@
                         <Menu mnemonicParsing="false" text="Objects (WIP)" />
                      </menus>
                   </MenuBar>
-                  <Button layoutX="14.0" layoutY="37.0" mnemonicParsing="false" text="Circle" />
-                  <Button layoutX="9.0" layoutY="85.0" mnemonicParsing="false" text="Square" />
-                  <Button layoutX="10.0" layoutY="134.0" mnemonicParsing="false" text="Triangle" />
+                  <Button id="circleToolButton" fx:id="circleTool" layoutX="64.0" layoutY="42.0" mnemonicParsing="false" />
+                  <Button id="squareToolButton" fx:id="squareTool" layoutX="64.0" layoutY="98.0" mnemonicParsing="false" />
+                  <Button id="triangleToolButton" fx:id="triangleTool" layoutX="64.0" layoutY="153.0" mnemonicParsing="false" />
                </children>
             </AnchorPane>
          </children>
