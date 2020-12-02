@@ -67,7 +67,12 @@
 	-fx-text-fill: #FFFFFF;
 }
 
-#toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
+#toolsMenu .label, #objectsMenu .label, #layersMenu .label, #colorsMenu .label {
+	-fx-text-fill: #FFFFFF;
+	-fx-padding: 0 0 0 -10;
+}
+
+#propertyMenu .label, #fontTypeLabel, #fontSizeLabel, #fontSizeSliderLabel {
 	-fx-text-fill: #FFFFFF;
 	-fx-padding: 0 0 0 -10;
 }

@@ -2,6 +2,10 @@ package application.controller;
 
 import java.io.IOException;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,19 +14,25 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.IntStream.rangeClosed;
-import static javafx.collections.FXCollections.observableList;
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
 
+	@FXML
+	private Label fontLabel, fontSizeLabel, fontSizeCountLabel;
+	
+	@FXML
+	private Slider fontSizePicker;
+	
 	@FXML
 	private Button saveButton, undoButton, redoButton, settingsButton, dropperTool, bucketTool, selectorTool, brushTool, eraserTool, stampTool; 
 	
@@ -33,8 +43,9 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private ImageView drawImage;
 	
 	@FXML
-	private ComboBox<String> fontPicker = new ComboBox<>(
-            observableList(Font.getFontNames().stream().distinct().collect(toList())));
+	private ComboBox<String> fontPicker;
+	
+	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
 	
 	private ImageView saveImage, undoImage, redoImage, selectorToolImage, dropperToolImage, bucketToolImage, brushToolImage, eraserToolImage, stampToolImage;
 	
@@ -49,7 +60,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		initializeImages();
 		initializeComponents();
-		
+		initializeListeners();
 	
 		/*
 		 * TODO
@@ -60,11 +71,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		 * save image + canvas contents to 1 image file
 		 */
 		
-		/*
+		
 		GraphicsContext gc = drawZone.getGraphicsContext2D();
 		gc.setFill(Color.GRAY);
 		gc.fillRect(0, 0, 750, 600);
-		*/
+		
 		
 		
 			
@@ -124,7 +135,16 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	}
 	
 	private void initializeComponents() {
-		//fontPicker.getSelectionModel().select(BindableValue<Font>);
+		fontPicker.setItems(fonts);
+		fontSizeCountLabel.setText(String.valueOf((int)(fontSizePicker.getValue())));
+	}
+	
+	private void initializeListeners() {
+		fontSizePicker.valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				fontSizeCountLabel.setText(String.valueOf((int)fontSizePicker.getValue()));	
+			}
+		});
 	}
 	
 	public void settingsButtonPushed(ActionEvent event) throws IOException {

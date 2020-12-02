@@ -47,7 +47,6 @@
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
                </VBox.margin></Button>
-            <Button mnemonicParsing="false" text="Brush Size" />
          </children></VBox>
    </left>
    <top>
@@ -71,7 +70,7 @@
           </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Button id="saveButton" fx:id="saveButton" mnemonicParsing="false">
+                  <Button id="saveButton" fx:id="saveButton" mnemonicParsing="false" onAction="#handle">
                      <font>
                         <Font size="10.0" />
                      </font></Button>
@@ -110,7 +109,7 @@
                <children>
                   <MenuBar id="layersMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Layers" />
+                        <Menu mnemonicParsing="false" text="Layers (WIP)" />
                      </menus>
                   </MenuBar>
                </children></AnchorPane>
@@ -118,10 +117,9 @@
                <children>
                   <MenuBar id="colorsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Colors" />
+                        <Menu mnemonicParsing="false" text="Paintbrush Settings (WIP)" />
                      </menus>
                   </MenuBar>
-                  <ColorPicker layoutX="395.0" layoutY="31.0" />
                </children></AnchorPane>
          </children>
       </GridPane>
@@ -143,14 +141,50 @@
                         <Menu mnemonicParsing="false" text="Properties" />
                      </menus>
                   </MenuBar>
-                  <ComboBox fx:id="fontPicker" prefWidth="150.0" />
+                  <Label id="fontTypeLabel" fx:id="fontLabel" text="Font Type">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="72.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="fontPicker" prefWidth="175.0" promptText="Times New Roman">
+                     <VBox.margin>
+                        <Insets left="13.0" top="10.0" />
+                     </VBox.margin></ComboBox>
+                  <Label id="fontSizeLabel" fx:id="fontSizeLabel" text="Font Size">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="75.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Slider fx:id="fontSizePicker" majorTickUnit="15.0" maxHeight="-Infinity" maxWidth="-Infinity" min="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="185.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="12.0">
+                     <VBox.margin>
+                        <Insets left="8.0" top="5.0" />
+                     </VBox.margin>
+                  </Slider>
+                  <Label id="fontSizeSliderLabel" fx:id="fontSizeCountLabel" text="100">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ColorPicker maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets left="25.0" top="10.0" />
+                     </VBox.margin></ColorPicker>
                </children>
             </VBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Objects" />
+                        <Menu mnemonicParsing="false" text="Objects (WIP)" />
                      </menus>
                   </MenuBar>
                   <Button layoutX="14.0" layoutY="37.0" mnemonicParsing="false" text="Circle" />
