@@ -10,13 +10,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.rangeClosed;
+import static javafx.collections.FXCollections.observableList;
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
 
@@ -29,6 +32,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private ImageView drawImage;
 	
+	@FXML
+	private ComboBox<String> fontPicker = new ComboBox<>(
+            observableList(Font.getFontNames().stream().distinct().collect(toList())));
+	
 	private ImageView saveImage, undoImage, redoImage, selectorToolImage, dropperToolImage, bucketToolImage, brushToolImage, eraserToolImage, stampToolImage;
 	
 	@Override
@@ -40,7 +47,8 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	void initialize() {
 		
-		initalizeImages();
+		initializeImages();
+		initializeComponents();
 		
 	
 		/*
@@ -62,7 +70,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			
 	}
 	
-	private void initalizeImages() {				
+	private void initializeImages() {				
 		saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save-white.png")));
 		saveImage.setFitHeight(25);
 		saveImage.setFitWidth(25);
@@ -108,7 +116,15 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		stampToolImage.setFitWidth(30);
 		stampTool.setGraphic(stampToolImage);
 		
-		selectorTool.setTooltip(new Tooltip("Selection tool lets you move objects on the canvas"));
+		
+	}
+	
+	private void createTooltips() {
+		
+	}
+	
+	private void initializeComponents() {
+		//fontPicker.getSelectionModel().select(BindableValue<Font>);
 	}
 	
 	public void settingsButtonPushed(ActionEvent event) throws IOException {

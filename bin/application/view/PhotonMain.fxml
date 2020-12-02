@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -120,6 +121,7 @@
                         <Menu mnemonicParsing="false" text="Colors" />
                      </menus>
                   </MenuBar>
+                  <ColorPicker layoutX="395.0" layoutY="31.0" />
                </children></AnchorPane>
          </children>
       </GridPane>
@@ -134,15 +136,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox id="objectHBox" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
-                     <menus>
-                        <Menu mnemonicParsing="false" text="Objects" />
-                     </menus>
-                  </MenuBar>
-               </children>
-            </HBox>
             <VBox id="propertyVBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <MenuBar id="propertyMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
@@ -150,8 +143,21 @@
                         <Menu mnemonicParsing="false" text="Properties" />
                      </menus>
                   </MenuBar>
+                  <ComboBox fx:id="fontPicker" prefWidth="150.0" />
                </children>
             </VBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="Objects" />
+                     </menus>
+                  </MenuBar>
+                  <Button layoutX="14.0" layoutY="37.0" mnemonicParsing="false" text="Circle" />
+                  <Button layoutX="9.0" layoutY="85.0" mnemonicParsing="false" text="Square" />
+                  <Button layoutX="10.0" layoutY="134.0" mnemonicParsing="false" text="Triangle" />
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
    </right>
