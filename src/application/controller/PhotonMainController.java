@@ -1,11 +1,11 @@
 package application.controller;
 
 import java.io.IOException;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -35,39 +36,30 @@ import javafx.stage.Stage;
 public class PhotonMainController implements EventHandler<ActionEvent> {
 
 	@FXML
-	private Label fontLabel, fontSizeLabel, fontSizeCountLabel;
-	
+	private Label fontLabel, fontSizeLabel, fontSizeCountLabel, brushSizePickerLabel;
 	@FXML
-	private Slider fontSizePicker;
-	
+	private Slider fontSizePicker, brushSizePicker;
 	@FXML
 	private Button saveButton, undoButton, redoButton, settingsButton; 
 	@FXML
 	private Button circleTool, squareTool, triangleTool;
-	
 	@FXML
 	private ToggleButton selectorTool, dropperTool, bucketTool, brushTool, eraserTool, stampTool;
-	
 	@FXML
 	private ToggleGroup toolsToggleGroup;
-	
 	@FXML
 	private ColorPicker colorPicker;
-	
 	@FXML
 	private Canvas drawZone;
-		
 	@FXML
 	private ImageView drawImage;
-	
 	@FXML
 	private ComboBox<String> fontPicker;
-	
 	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
-	private final Color ERASER_COLOR = Color.rgb(40, 41, 35);
-	
+	//private final Color ERASER_COLOR = Color.rgb(40, 41, 35);
 	private ImageView saveImage, undoImage, redoImage, selectorToolImage, dropperToolImage, bucketToolImage, brushToolImage, eraserToolImage, stampToolImage;
 	private ImageView circleToolImage, squareToolImage, triangleToolImage;
+	private GraphicsContext gc;
 	
 	@Override
 	public void handle(ActionEvent event) {
@@ -91,15 +83,18 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		/*
 		 * TODO
 		 * Shapes/Tools/Stuff
-		 * Start with a blank canvas that you can draw on
-		 * Add layers to canvas
+		 * Add layers to canvas (if time permits)
 		 * load image onto canvas
 		 * save image + canvas contents to 1 image file
+		 * Fix drawing to ignore the second mouse button if one is pressed
+		 * Brush sizes
+		 * Text Tool
+		 * Filters (if time permits)
 		 */
 		
 	}
 	
-	private void initializeImages() {				
+	private void initializeImages() {
 		saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save-white.png")));
 		saveImage.setFitHeight(25);
 		saveImage.setFitWidth(25);
@@ -181,6 +176,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private void initializeComponents() {
 		fontPicker.setItems(fonts);
 		fontSizeCountLabel.setText(String.valueOf((int)(fontSizePicker.getValue())));
+		brushSizePickerLabel.setText(String.valueOf((int)brushSizePicker.getValue()));
 		
 		
 	}
@@ -190,6 +186,13 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		fontSizePicker.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				fontSizeCountLabel.setText(String.valueOf((int)fontSizePicker.getValue()));	
+			}
+		});
+		
+		brushSizePicker.valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				brushSizePickerLabel.setText(String.valueOf((int)brushSizePicker.getValue()));	
+				gc.setLineWidth(brushSizePicker.getValue());
 			}
 		});
 		
@@ -249,11 +252,12 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	}
 	
 	private void initializeCanvas() {
-		GraphicsContext gc = drawZone.getGraphicsContext2D();
-		gc.setFill(Color.TRANSPARENT);
-		gc.fillRect(0, 0, 750, 600);
+		gc = drawZone.getGraphicsContext2D();
 		
-		gc.setLineWidth(1);
+		//gc.setFill(Color.WHITE);
+		//gc.fillRect(0, 0, 860, 634);
+		
+		gc.setLineWidth(brushSizePicker.getValue());
 		
 		
 		Line line = new Line();
@@ -276,10 +280,15 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				gc.lineTo(e.getX(), e.getY());
 				*/
 			}
+			else if(dropperTool.isSelected()) {
+				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				colorPicker.getCustomColors().add(snapshot.getPixelReader().getColor((int)e.getX(), (int)e.getY()));
+				colorPicker.setValue(snapshot.getPixelReader().getColor((int)e.getX(), (int)e.getY()));
+			}
 		});
 		
 		drawZone.setOnMouseDragged(e -> {
-			if(brushTool.isSelected()) {
+	 		if(brushTool.isSelected()) {
 				gc.lineTo(e.getX(), e.getY());
 				gc.stroke();
 			}

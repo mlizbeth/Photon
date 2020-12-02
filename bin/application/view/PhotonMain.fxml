@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
+<BorderPane id="rootWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
    <left>
       <VBox id="toolsVBox" prefHeight="460.0" prefWidth="69.0" BorderPane.alignment="CENTER">
          <children>
@@ -114,9 +114,15 @@
                <children>
                   <MenuBar id="layersMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Paintbrush Settings (WIP)" />
+                        <Menu mnemonicParsing="false" text="Paintbrush &amp; Eraser Size" />
                      </menus>
                   </MenuBar>
+                  <Slider fx:id="brushSizePicker" layoutX="14.0" layoutY="40.0" majorTickUnit="8.0" max="72.0" min="1.0" prefHeight="33.0" prefWidth="376.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                  <Label id="fontSizePickerLabel" fx:id="brushSizePickerLabel" layoutX="438.0" layoutY="41.0" text="72">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
             <AnchorPane id="bottomRightAnchorPane" prefHeight="101.0" prefWidth="400.0" GridPane.columnIndex="1">
                <children>
@@ -143,7 +149,7 @@
                <children>
                   <MenuBar id="propertyMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Properties" />
+                        <Menu mnemonicParsing="false" text="Font &amp; Colors" />
                      </menus>
                   </MenuBar>
                   <Label id="fontTypeLabel" fx:id="fontLabel" text="Font Type">
@@ -203,10 +209,10 @@
    <center>
       <Pane id="drawZonePane" prefHeight="357.0" prefWidth="507.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane layoutX="-1.0" layoutY="-1.0" prefHeight="660.0" prefWidth="900.0">
+            <StackPane id="drawZoneStack" layoutX="10.0" layoutY="10.0" prefHeight="646.0" prefWidth="886.0">
                <children>
                   <ImageView id="drawImage" fx:id="drawImage" fitHeight="239.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" />
-                  <Canvas id="drawCanvas" fx:id="drawZone" height="612.0" width="830.0" />
+                  <Canvas id="drawCanvas" fx:id="drawZone" height="646.0" layoutX="10.0" layoutY="10.0" width="886.0" />
                </children>
             </StackPane>
          </children>

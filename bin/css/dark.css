@@ -8,9 +8,18 @@
 	-fx-background-color: rgb(40,41,35);
 }
 
+#drawZoneStack {
+	-fx-background-color: #FFFFFF;
+}
+
 .tooltip {
 	-fx-font-size: 16;
 }
+
+.slider .axis {
+	-fx-tick-label-fill: white;
+}
+
 
 #saveButton, #redoButton, #undoButton {
 	-fx-background-color: rgb(109,110,106);
@@ -83,6 +92,10 @@
 #propertyMenu .label, #fontTypeLabel, #fontSizeLabel, #fontSizeSliderLabel {
 	-fx-text-fill: #FFFFFF;
 	-fx-padding: 0 0 0 -10;
+}
+
+#fontSizePickerLabel {
+	-fx-text-fill: #FFFFFF;
 }
 
 #fileMenu .label, #settingsMenu .label, #helpMenu .label {
