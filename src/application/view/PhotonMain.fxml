@@ -131,6 +131,10 @@
                         <Menu mnemonicParsing="false" text="Filter Settings (WIP)" />
                      </menus>
                   </MenuBar>
+                  <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" text="Filter 1" />
+                  <Button layoutX="121.0" layoutY="39.0" mnemonicParsing="false" text="Filter 2" />
+                  <Button layoutX="222.0" layoutY="39.0" mnemonicParsing="false" text="Filter 3" />
+                  <Button layoutX="322.0" layoutY="39.0" mnemonicParsing="false" text="Filter 4" />
                </children></AnchorPane>
          </children>
       </GridPane>
@@ -211,7 +215,6 @@
          <children>
             <StackPane id="drawZoneStack" layoutX="10.0" layoutY="10.0" prefHeight="646.0" prefWidth="886.0">
                <children>
-                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="239.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" />
                   <Canvas id="drawCanvas" fx:id="drawZone" height="646.0" layoutX="10.0" layoutY="10.0" width="886.0" />
                </children>
             </StackPane>

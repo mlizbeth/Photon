@@ -211,7 +211,6 @@
          <children>
             <StackPane id="drawZoneStack" layoutX="10.0" layoutY="10.0" prefHeight="646.0" prefWidth="886.0">
                <children>
-                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="239.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" />
                   <Canvas id="drawCanvas" fx:id="drawZone" height="646.0" layoutX="10.0" layoutY="10.0" width="886.0" />
                </children>
             </StackPane>

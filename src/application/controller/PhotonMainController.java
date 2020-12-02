@@ -52,8 +52,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Canvas drawZone;
 	@FXML
-	private ImageView drawImage;
-	@FXML
 	private ComboBox<String> fontPicker;
 	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
 	//private final Color ERASER_COLOR = Color.rgb(40, 41, 35);
@@ -259,6 +257,9 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		gc.setLineWidth(brushSizePicker.getValue());
 		
+		Image testImg = new Image("file:src/img/test.jpg");
+		gc.drawImage(scaleImage(testImg, 886, 646, true), 0, 0);
+		
 		
 		Line line = new Line();
 		Rectangle rect = new Rectangle();
@@ -333,6 +334,14 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		window.setTitle("Settings");
 		window.show();
 		
+	}
+	
+	private Image scaleImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
+		ImageView imageView = new ImageView(sourceImg);
+		imageView.setPreserveRatio(preserveRatio);
+		imageView.setFitWidth(targetWidth);
+		imageView.setFitHeight(targetHeight);
+		return imageView.snapshot(null, null);
 	}
 
 }
