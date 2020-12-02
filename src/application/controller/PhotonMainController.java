@@ -16,12 +16,18 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -34,9 +40,18 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private Slider fontSizePicker;
 	
 	@FXML
-	private Button saveButton, undoButton, redoButton, settingsButton, dropperTool, bucketTool, selectorTool, brushTool, eraserTool, stampTool; 
+	private Button saveButton, undoButton, redoButton, settingsButton; 
 	@FXML
 	private Button circleTool, squareTool, triangleTool;
+	
+	@FXML
+	private ToggleButton selectorTool, dropperTool, bucketTool, brushTool, eraserTool, stampTool;
+	
+	@FXML
+	private ToggleGroup toolsToggleGroup;
+	
+	@FXML
+	private ColorPicker colorPicker;
 	
 	@FXML
 	private Canvas drawZone;
@@ -58,12 +73,17 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	public void paintBrushHandler(ActionEvent event) {
+		System.out.println("Brush");
+	}
+	
 	@FXML
 	void initialize() {
 		
 		initializeImages();
 		initializeComponents();
 		initializeListeners();
+		initializeCanvas();
 	
 		/*
 		 * TODO
@@ -74,14 +94,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		 * save image + canvas contents to 1 image file
 		 */
 		
-		
-		GraphicsContext gc = drawZone.getGraphicsContext2D();
-		gc.setFill(Color.GRAY);
-		gc.fillRect(0, 0, 750, 600);
-		
-		
-		
-			
 	}
 	
 	private void initializeImages() {				
@@ -154,12 +166,105 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private void initializeComponents() {
 		fontPicker.setItems(fonts);
 		fontSizeCountLabel.setText(String.valueOf((int)(fontSizePicker.getValue())));
+		
+		
 	}
 	
 	private void initializeListeners() {
+		
 		fontSizePicker.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				fontSizeCountLabel.setText(String.valueOf((int)fontSizePicker.getValue()));	
+			}
+		});
+		
+		selectorTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				selectorTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				selectorTool.setStyle(null);
+			}
+		});
+		
+		dropperTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				dropperTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				dropperTool.setStyle(null);
+			}
+		});
+		
+		bucketTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				bucketTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				bucketTool.setStyle(null);
+			}
+		});
+		
+		brushTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				brushTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				brushTool.setStyle(null);
+			}
+		});
+		
+		eraserTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				eraserTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				eraserTool.setStyle(null);
+			}
+		});
+		
+		stampTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				stampTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				stampTool.setStyle(null);
+			}
+		});
+	}
+	
+	private void initializeCanvas() {
+		GraphicsContext gc = drawZone.getGraphicsContext2D();
+		gc.setFill(Color.GRAY);
+		gc.fillRect(0, 0, 750, 600);
+		
+		gc.setLineWidth(1);
+		
+		
+		Line line = new Line();
+		Rectangle rect = new Rectangle();
+		Circle circ = new Circle();
+		
+		drawZone.setOnMousePressed(e -> {
+			if(brushTool.isSelected()) {
+				gc.setStroke(colorPicker.getValue());
+				gc.beginPath();
+				gc.lineTo(e.getX(), e.getY());
+			}
+		});
+		
+		drawZone.setOnMouseDragged(e -> {
+			if(brushTool.isSelected()) {
+				gc.lineTo(e.getX(), e.getY());
+				gc.stroke();
+			}
+		});
+		
+		drawZone.setOnMouseReleased(e -> {
+			if(brushTool.isSelected()) {
+				gc.lineTo(e.getX(), e.getY());
+				gc.stroke();
+				gc.closePath();
 			}
 		});
 	}

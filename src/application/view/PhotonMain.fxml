@@ -19,34 +19,39 @@
                   <Menu mnemonicParsing="false" text="Tools" />
                </menus>
             </MenuBar>
-            <Button id="selectorTool" fx:id="selectorTool" mnemonicParsing="false" onAction="#handle">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+            <ToggleButton fx:id="selectorTool" mnemonicParsing="false">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
                </VBox.margin>
-            </Button>
-            <Button id="dropperTool" fx:id="dropperTool" mnemonicParsing="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toolsToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="dropperTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="bucketTool" fx:id="bucketTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="bucketTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="brushTool" fx:id="brushTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="brushTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="eraserTool" fx:id="eraserTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="eraserTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="stampTool" fx:id="stampTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="stampTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
+               </VBox.margin>
+            </ToggleButton>
          </children></VBox>
    </left>
    <top>
@@ -174,7 +179,7 @@
                         <Insets left="100.0" />
                      </VBox.margin>
                   </Label>
-                  <ColorPicker maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0">
+                  <ColorPicker fx:id="colorPicker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0">
                      <VBox.margin>
                         <Insets left="25.0" top="10.0" />
                      </VBox.margin></ColorPicker>
@@ -201,7 +206,7 @@
             <StackPane layoutX="-1.0" layoutY="-1.0" prefHeight="660.0" prefWidth="900.0">
                <children>
                   <Canvas id="drawCanvas" fx:id="drawZone" height="600.0" width="750.0" />
-                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="1.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
          </children>

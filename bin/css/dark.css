@@ -52,7 +52,7 @@
 	-fx-background-color: rgb(40,41,35); 
 }
 
-#toolsVBox .button {
+#toolsVBox .button, #toolsVBox .toggle-button {
 	-fx-background-color: rgb(40,41,35); 
 	-fx-accent: #FFFFFF;
 	-fx-focus-color: #FFFFFF;
