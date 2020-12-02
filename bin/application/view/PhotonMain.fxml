@@ -201,12 +201,12 @@
       </GridPane>
    </right>
    <center>
-      <Pane id="drawZonePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane id="drawZonePane" prefHeight="357.0" prefWidth="507.0" BorderPane.alignment="CENTER">
          <children>
             <StackPane layoutX="-1.0" layoutY="-1.0" prefHeight="660.0" prefWidth="900.0">
                <children>
-                  <Canvas id="drawCanvas" fx:id="drawZone" height="600.0" width="750.0" />
-                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="274.0" fitWidth="351.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="239.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" />
+                  <Canvas id="drawCanvas" fx:id="drawZone" height="612.0" width="830.0" />
                </children>
             </StackPane>
          </children>

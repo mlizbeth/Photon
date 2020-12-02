@@ -8,6 +8,10 @@
 	-fx-background-color: rgb(40,41,35);
 }
 
+.tooltip {
+	-fx-font-size: 16;
+}
+
 #saveButton, #redoButton, #undoButton {
 	-fx-background-color: rgb(109,110,106);
 	-fx-accent: #FFFFFF;

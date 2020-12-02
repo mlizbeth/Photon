@@ -22,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -63,6 +64,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private ComboBox<String> fontPicker;
 	
 	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
+	private final Color ERASER_COLOR = Color.rgb(40, 41, 35);
 	
 	private ImageView saveImage, undoImage, redoImage, selectorToolImage, dropperToolImage, bucketToolImage, brushToolImage, eraserToolImage, stampToolImage;
 	private ImageView circleToolImage, squareToolImage, triangleToolImage;
@@ -83,6 +85,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		initializeImages();
 		initializeComponents();
 		initializeListeners();
+		createTooltips();
 		initializeCanvas();
 	
 		/*
@@ -160,7 +163,19 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	}
 	
 	private void createTooltips() {
+		Tooltip selectorTooltip = new Tooltip("Allows you to select and move objects on the canvas");
+		Tooltip eyedropperTooltip = new Tooltip("Returns the color value of the specified pixel and changes the color picker to that value");
+		Tooltip bucketTooltip = new Tooltip("Fills an enclosed area with the currently selected color in the color picker");
+		Tooltip brushTooltip = new Tooltip("Allows you to draw on the canvas with the currently selected color in the color picker");
+		Tooltip eraserTooltip = new Tooltip("Allows you to erase any drawings on the canvas");
+		Tooltip stampTooltip = new Tooltip("Allows you to insert text on the canvas using the specified font style, size, and color as selected in the properties area");
 		
+		Tooltip.install(selectorTool, selectorTooltip);
+		Tooltip.install(dropperTool, eyedropperTooltip);
+		Tooltip.install(bucketTool, bucketTooltip);
+		Tooltip.install(brushTool, brushTooltip);
+		Tooltip.install(eraserTool, eraserTooltip);
+		Tooltip.install(stampTool, stampTooltip);
 	}
 	
 	private void initializeComponents() {
@@ -235,7 +250,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	
 	private void initializeCanvas() {
 		GraphicsContext gc = drawZone.getGraphicsContext2D();
-		gc.setFill(Color.GRAY);
+		gc.setFill(Color.TRANSPARENT);
 		gc.fillRect(0, 0, 750, 600);
 		
 		gc.setLineWidth(1);
@@ -245,11 +260,21 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		Rectangle rect = new Rectangle();
 		Circle circ = new Circle();
 		
+		
 		drawZone.setOnMousePressed(e -> {
 			if(brushTool.isSelected()) {
 				gc.setStroke(colorPicker.getValue());
 				gc.beginPath();
 				gc.lineTo(e.getX(), e.getY());
+			}
+			else if(eraserTool.isSelected()) {
+				double lineWidth = gc.getLineWidth();
+				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
+				/*
+				gc.setStroke(ERASER_COLOR);
+				gc.beginPath();
+				gc.lineTo(e.getX(), e.getY());
+				*/
 			}
 		});
 		
@@ -258,6 +283,14 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				gc.lineTo(e.getX(), e.getY());
 				gc.stroke();
 			}
+			else if(eraserTool.isSelected()) {
+				double lineWidth = gc.getLineWidth();
+				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
+				/*
+				gc.lineTo(e.getX(), e.getY());
+				gc.stroke();
+				*/
+			}
 		});
 		
 		drawZone.setOnMouseReleased(e -> {
@@ -265,6 +298,15 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				gc.lineTo(e.getX(), e.getY());
 				gc.stroke();
 				gc.closePath();
+			}
+			else if(eraserTool.isSelected()) {
+				double lineWidth = gc.getLineWidth();
+				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
+				/*
+				gc.lineTo(e.getX(), e.getY());
+				gc.stroke();
+				gc.closePath();
+				*/
 			}
 		});
 	}
