@@ -59,8 +59,8 @@
         <menus>
           <Menu id="fileMenu" mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Open" />
-              <MenuItem id="fileMenuItemClose" mnemonicParsing="false" onAction="#closeHandler" text="Close" />
+                  <MenuItem fx:id="fileOpenMenu" mnemonicParsing="false" onAction="#handle" text="Open" />
+              <MenuItem id="fileMenuItemClose" fx:id="fileCloseMenu" mnemonicParsing="false" onAction="#handle" text="Close" />
             </items>
           </Menu>
           <Menu id="settingsMenu" mnemonicParsing="false" text="Edit">
@@ -193,6 +193,11 @@
                      <VBox.margin>
                         <Insets left="25.0" top="10.0" />
                      </VBox.margin></ColorPicker>
+                  <TextField fx:id="stampText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="180.0">
+                     <VBox.margin>
+                        <Insets left="8.0" right="8.0" top="10.0" />
+                     </VBox.margin>
+                  </TextField>
                </children>
             </VBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
