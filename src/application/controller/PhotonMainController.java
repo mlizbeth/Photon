@@ -46,8 +46,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
- * 
- * @author Madeline Kotara
+ * Photon Photo Editor - AKA the next Photoshop! A simple paint program that allows you to import and image for editing, and create your own from scratch. Supports undo/redo operations, custom brush sizes,
+ * fonts, etc.
+ * @author Madeline Kotara - duk128
+ * @version 1.0
+ * @since 12-3-2020
  *
  */
 
@@ -81,6 +84,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private GraphicsContext gc;
 	private Stack<Image> undoStack = new Stack<>();
 	private Stack<Image> redoStack = new Stack<>();
+	
+	/**
+	 * Custom event handlers to respond to mouse clicks
+	 */
 	
 	@Override
 	public void handle(ActionEvent event) {
@@ -197,6 +204,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	/**
+	 * Initializes all buttons and loads the related image as the graphic for the button
+	 */
+	
 	private void initializeImages() {
 		saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save-white.png")));
 		saveImage.setFitHeight(25);
@@ -260,6 +271,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	/**
+	 * Applies tooltips to the previous buttons so the user can see what each tool does by holding their mouse over it
+	 */
+	
 	private void createTooltips() {
 		Tooltip selectorTooltip = new Tooltip("Allows you to select and move objects on the canvas");
 		Tooltip eyedropperTooltip = new Tooltip("Returns the color value of the specified pixel and changes the color picker to that value");
@@ -276,11 +291,19 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		Tooltip.install(stampTool, stampTooltip);
 	}
 	
+	/**
+	 * Initializes the font and brush size sliders, loads all system fonts into the FontPicker Combobox
+	 */
+	
 	private void initializeComponents() {
 		fontPicker.setItems(fonts);
 		fontSizeCountLabel.setText(String.valueOf((int)(fontSizePicker.getValue())));
 		brushSizePickerLabel.setText(String.valueOf((int)brushSizePicker.getValue()));
 	}
+	
+	/**
+	 * Adds event listeners to all the tools so the UI can react an update properly
+	 */
 	
 	private void initializeListeners() {
 		
@@ -406,6 +429,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	/**
+	 * Initializes the canvas as well as includes the primary logic for drawing objects and pushing new images on to the undoStack so undo/redo operations can work
+	 * @see undoStack
+	 */
+	
 	private void initializeCanvas() {
 		gc = drawZone.getGraphicsContext2D();
 		
@@ -481,7 +509,12 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			}
 		});
 	}
-	
+
+	/**
+	 * Logic responsible for switching the MainView to the SettingsView so themes can be applied.
+	 * @param event fired by clicking on the object
+	 * @throws IOException if the CSS or FXML file cannot be found
+	 */
 	public void settingsButtonPushed(ActionEvent event) throws IOException {
 		
 		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
@@ -498,6 +531,14 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	/**
+	 * Scales down an image so it fits properly on the canvas and maintains aspect ratio
+	 * @param sourceImg The source image being loaded from the disk
+	 * @param targetWidth The width to be applied to the image, ideally the same as canvas width or smaller
+	 * @param targetHeight The height to be applied to the image, ideally the same as canvas height or smaller
+	 * @param preserveRatio true if the image ratio should be preserved so it doesn't look stretched
+	 * @return Image that has been scaled down to the canvas dimensions
+	 */
 	private Image scaleImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
 		ImageView imageView = new ImageView(sourceImg);
 		imageView.setPreserveRatio(preserveRatio);
@@ -506,6 +547,13 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		return imageView.snapshot(null, null);
 	}
 	
+	
+	/**
+	 * Currently not used/working. The undo/redo operations suffer from quality loss because of how snapshotting a canvas works. Any screen higher than 256 dpi will experience this loss of quality.
+	 * @param canvas the canvas used to draw images to
+	 * @param pixelScale the multiplier to upscale images
+	 * @return WritableImage that has been scaled up without losing quality
+	 */
 	private WritableImage scaleUpImage(Canvas canvas, double pixelScale) {
 		WritableImage img = new WritableImage((int)Math.rint(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
 		SnapshotParameters params = new SnapshotParameters();
@@ -514,6 +562,12 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		return canvas.snapshot(params, img);
 	}
 	
+	/**
+	 * Alternative implementation
+	 * Currently not used/working. The undo/redo operations suffer from quality loss because of how snapshotting a canvas works. Any screen higher than 256 dpi will experience this loss of quality.
+	 * @param canvas the canvas used to draw images to
+	 * @param pixelScale the multiplier to upscale images
+	 */
 	private void scaleUpImageTest(Canvas canvas, double pixelScale) {
 		WritableImage img = new WritableImage((int)Math.rint(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
 		SnapshotParameters params = new SnapshotParameters();
@@ -523,6 +577,12 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	/**
+	 * Test implementation of scaleUpImage and scaleUpImageTest
+	 * @param node the source node containing the image you want to scale, in this case, the canvas
+	 * @param scale the multiplier used to upscale the images
+	 * @return Image that has been scaled up without losing quality
+	 */
 	private Image scaleUpImage2(Node node, int scale) {
 		
 		final Bounds bounds = node.getLayoutBounds();
