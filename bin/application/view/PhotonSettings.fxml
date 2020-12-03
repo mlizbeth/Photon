@@ -57,8 +57,4 @@
          </children>
       </AnchorPane>
    </children>
-   <stylesheets>
-      <URL value="@../../../bin/css/dark.css" />
-      <URL value="@../../../bin/css/light.css" />
-   </stylesheets>
 </AnchorPane>

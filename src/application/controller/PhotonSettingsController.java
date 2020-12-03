@@ -24,7 +24,7 @@ public class PhotonSettingsController {
 	@FXML
 	private ColorPicker colorPicker;
 	@FXML
-	private RadioButton darkRadioButton, lightRadioButton, customRadioButton;
+	private RadioButton darkRadioButton, lightRadioButton;
 	@FXML
 	private ToggleGroup themeGroup;
 	
@@ -49,16 +49,13 @@ public class PhotonSettingsController {
 			{
 				apply(darkCSS, scene);
 				currentCSS = "/css/dark.css";
+				System.out.println("Dark");
 			}
 			else if (toggleGroupValue.equals("Light"))
 			{
 				apply(lightCSS, scene);
-				currentCSS = "/css/dark.css";
-			}
-			else 
-			{
-				//get custom color, apply it to a css file, update
-				//do this last as it is the most complicated, at least for my tiny bird brain
+				currentCSS = "/css/light.css";
+				System.out.println("Light");
 			}
 			//return back to the main view
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/PhotonMain.fxml"));
@@ -78,7 +75,37 @@ public class PhotonSettingsController {
 	
 	public void applyButtonPushed(ActionEvent event) throws IOException {
 		
+		Scene scene = themeLabel.getScene();
+		String currentCSS = "";
+		final String darkCSS = "/css/dark.css";
+		final String lightCSS = "/css/light.css";
 		
+		//when ok button is pushed, apply the new css and switch back to the main view
+		//applies just in case the user did not press apply beforehand
+		if (themeGroup.getSelectedToggle() != null)
+		{
+			
+			RadioButton selectedRadioButton = (RadioButton) themeGroup.getSelectedToggle();
+			String toggleGroupValue = selectedRadioButton.getText();
+			
+			if (toggleGroupValue.equals("Dark"))
+			{
+				apply(darkCSS, scene);
+				currentCSS = "/css/dark.css";
+				System.out.println("Dark");
+			}
+			else if (toggleGroupValue.equals("Light"))
+			{
+				apply(lightCSS, scene);
+				currentCSS = "/css/light.css";
+				System.out.println("Light");
+			}
+			//return back to the main view
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/PhotonMain.fxml"));
+			Parent mainViewParent = loader.load();
+			Scene mainViewScene = new Scene(mainViewParent);
+			apply(currentCSS, mainViewScene);
+		}
 	}
 	
 	public void cancelButtonPushed(ActionEvent event) throws IOException {
@@ -86,6 +113,18 @@ public class PhotonSettingsController {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/PhotonMain.fxml"));
 		Parent mainRoot = loader.load();
 		Scene mainScene = new Scene(mainRoot);
+		
+		//get current css information
+		String currentCSS = themeLabel.getScene().getStylesheets().toString();
+		System.out.println(currentCSS);
+		if (currentCSS.contains("dark.css"))
+		{
+			apply("/css/dark.css", mainScene);
+		}
+		else if (currentCSS.contains("light.css"))
+		{
+			apply("/css/light.css", mainScene);
+		}
 		
 		//gets stage information
 		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

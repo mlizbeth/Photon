@@ -340,6 +340,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
 		Parent settingsViewParent = settingsLoader.load();
 		Scene settingsViewScene = new Scene(settingsViewParent);
+		settingsViewScene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
 		
 		//gets stage information
 		Stage window = (Stage) circleTool.getScene().getWindow();
