@@ -27,7 +27,7 @@
 	-fx-focus-color: #FFFFFF;
 }
 
-#toolsVBox {
+#toolsVBox, #settingsHBox {
 	-fx-border-color: rgb(63,63,63);
 	-fx-background-color: rgb(40,41,35);
 	-fx-border-width: 2;
@@ -71,6 +71,22 @@
 	-fx-focus-color: #FFFFFF;
 }
 
+#settingsOkButton, #settingsApplyButton, #settingsCancelButton {
+	-fx-text-fill: #FFFFFF;
+	-fx-border-color: rgb(63,63,63);
+	-fx-background-color: rgb(63,63,63);
+}
+
+#settingsAnchorPane, #settingsVBox {
+	-fx-background-color: rgb(40,41,35);
+}
+
+#settingsRadioButton {
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: rgb(63,63,63);
+	-fx-accent: rgb(40,41,35);
+}
+
 #mainMenuBar {
 	-fx-background-color: rgb(109,110,106); 
 	-fx-text-fill: #FFFFFF;
@@ -84,7 +100,7 @@
 	-fx-text-fill: #FFFFFF;
 }
 
-#toolsMenu .label, #objectsMenu .label, #layersMenu .label, #colorsMenu .label {
+#toolsMenu .label, #objectsMenu .label, #layersMenu .label, #colorsMenu .label, #themeLabel {
 	-fx-text-fill: #FFFFFF;
 	-fx-padding: 0 0 0 -10;
 }
