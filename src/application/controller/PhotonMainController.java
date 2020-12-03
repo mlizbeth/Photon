@@ -4,9 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
-
 import javax.imageio.ImageIO;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -51,7 +49,9 @@ import javafx.stage.Stage;
  * @author Madeline Kotara - duk128
  * @version 1.0
  * @since 12-3-2020
- *
+ * @see java.util.Stack
+ * @see javafx.scene.canvas.Canvas
+ * @see javafx.scene.Node
  */
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
