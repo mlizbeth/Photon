@@ -1,16 +1,21 @@
 package application.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
+
+import javax.imageio.ImageIO;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,12 +34,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Transform;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
@@ -46,7 +51,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Button saveButton, undoButton, redoButton; 
 	@FXML
-	private MenuItem settingsMenu;
+	private MenuItem settingsMenu, menuItemOpen, menuItemSaveAs;
 	@FXML
 	private MenuBar menuBar;
 	@FXML
@@ -92,13 +97,54 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				gc.drawImage(redoStack.pop(), 0, 0);
 			}
 		}
-		else if(event.getSource().equals(saveButton)) {
-			//gc.drawImage(scaleUpImage(drawZone, 6), 0, 0);
+		else if(event.getSource().equals(this.menuItemSaveAs)) {
+			
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Photon - Save");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+			File file = fileChooser.showSaveDialog((Stage)circleTool.getScene().getWindow());
+			
+			if(file != null) {
+				String stringName = file.getName();
+				String stringExtension = stringName.substring(1+stringName.lastIndexOf(".")).toLowerCase();
+				BufferedImage bufferedImage = SwingFXUtils.fromFXImage(drawZone.snapshot(new SnapshotParameters(), null), null);
+				
+				try {
+					ImageIO.write(bufferedImage, stringExtension, file);
+				} catch (IOException ioException) {
+					
+					ioException.printStackTrace();
+				}
+			}			
 		}
-	}
-	
-	public void closeHandler() {
-		System.exit(0);
+		
+		else if(event.getSource().equals(this.menuItemOpen)) {
+
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Photon - Save");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+
+			File file = fileChooser.showOpenDialog((Stage)circleTool.getScene().getWindow());			
+			if(file != null) {
+
+				Image drawingImage = new Image(file.toURI().toString());
+				gc.drawImage(scaleImage(drawingImage, 886, 646, true), 0, 0);
+			}						
+			
+		} else if(event.getSource().equals(this.saveButton)) {
+			
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Photon - Save");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+
+			File file = fileChooser.showOpenDialog((Stage)circleTool.getScene().getWindow());			
+			if(file != null) {
+
+				Image drawingImage = new Image(file.toURI().toString());
+				gc.drawImage(scaleImage(drawingImage, 886, 646, true), 0, 0);
+			}									
+		}
+
 	}
 	
 	public void paintBrushHandler(ActionEvent event) {
@@ -337,10 +383,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	}
 	
 	public void settingsButtonPushed(ActionEvent event) throws IOException {
+		
 		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
 		Parent settingsViewParent = settingsLoader.load();
 		Scene settingsViewScene = new Scene(settingsViewParent);
-		settingsViewScene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
 		
 		//gets stage information
 		Stage window = (Stage) circleTool.getScene().getWindow();
@@ -348,6 +394,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		window.setScene(settingsViewScene);
 		window.setTitle("Settings");
 		window.show();
+		
 	}
 	
 	private Image scaleImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
@@ -357,25 +404,5 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		imageView.setFitHeight(targetHeight);
 		return imageView.snapshot(null, null);
 	}
-	
-	private Image scaleUpImage(Node node, int scale) {
-		final Bounds bounds = node.getLayoutBounds();
 
-		System.out.println(bounds.getWidth() + " " + bounds.getHeight());
-
-		WritableImage scaledWritableImage = new WritableImage(
-				(int) Math.round(bounds.getWidth() * scale),
-				(int) Math.round(bounds.getHeight() * scale));
-
-		System.out.println(scaledWritableImage.getHeight() + " " + scaledWritableImage.getWidth());
-
-		SnapshotParameters params = new SnapshotParameters();
-		params.setTransform(Transform.scale(scale, scale));
-
-		ImageView scaledImageView = new ImageView(node.snapshot(params, scaledWritableImage));
-		scaledImageView.setFitWidth(bounds.getWidth());
-		scaledImageView.setFitHeight(bounds.getHeight());
-
-		return scaledImageView.snapshot(null, null);
-	}
 }
