@@ -1,11 +1,11 @@
 package application.controller;
 
 import java.io.IOException;
+import java.util.Stack;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,7 +26,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -54,15 +53,36 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private ComboBox<String> fontPicker;
 	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
-	//private final Color ERASER_COLOR = Color.rgb(40, 41, 35);
 	private ImageView saveImage, undoImage, redoImage, selectorToolImage, dropperToolImage, bucketToolImage, brushToolImage, eraserToolImage, stampToolImage;
 	private ImageView circleToolImage, squareToolImage, triangleToolImage;
 	private GraphicsContext gc;
+	private Stack<Image> undoStack = new Stack<>();
+	private Stack<Image> redoStack = new Stack<>();
 	
 	@Override
 	public void handle(ActionEvent event) {
-		System.out.println("TEST");
-		
+		if(event.getSource().equals(undoButton)) {
+			if(undoStack.size() == 1) {
+				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				gc.clearRect(0, 0, drawZone.getWidth(), drawZone.getHeight());
+				redoStack.push(temp);
+				undoStack.pop(); //remove the last undo
+				
+			}
+			else if(undoStack.size() > 1) {
+				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				gc.clearRect(0, 0, drawZone.getWidth(), drawZone.getHeight());
+				gc.drawImage(undoStack.pop(), 0, 0);
+				redoStack.push(temp);
+			}
+		}
+		else if(event.getSource().equals(redoButton)) {
+			if(redoStack.size() != 0) {
+				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				undoStack.push(temp);
+				gc.drawImage(redoStack.pop(), 0, 0);
+			}
+		}
 	}
 	
 	public void paintBrushHandler(ActionEvent event) {
@@ -175,8 +195,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		fontPicker.setItems(fonts);
 		fontSizeCountLabel.setText(String.valueOf((int)(fontSizePicker.getValue())));
 		brushSizePickerLabel.setText(String.valueOf((int)brushSizePicker.getValue()));
-		
-		
 	}
 	
 	private void initializeListeners() {
@@ -252,22 +270,17 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private void initializeCanvas() {
 		gc = drawZone.getGraphicsContext2D();
 		
-		//gc.setFill(Color.WHITE);
-		//gc.fillRect(0, 0, 860, 634);
-		
 		gc.setLineWidth(brushSizePicker.getValue());
+		//Image snapshot2 = drawZone.snapshot(new SnapshotParameters(), null);
+		//undoStack.push(snapshot2);
 		
-		Image testImg = new Image("file:src/img/test.jpg");
-		gc.drawImage(scaleImage(testImg, 886, 646, true), 0, 0);
-		
-		
-		Line line = new Line();
-		Rectangle rect = new Rectangle();
-		Circle circ = new Circle();
-		
+		//Image testImg = new Image("file:src/img/test.jpg");
+		//gc.drawImage(scaleImage(testImg, 886, 646, true), 0, 0);
 		
 		drawZone.setOnMousePressed(e -> {
 			if(brushTool.isSelected()) {
+				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				undoStack.push(snapshot);
 				gc.setStroke(colorPicker.getValue());
 				gc.beginPath();
 				gc.lineTo(e.getX(), e.getY());
@@ -275,11 +288,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			else if(eraserTool.isSelected()) {
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
-				/*
-				gc.setStroke(ERASER_COLOR);
-				gc.beginPath();
-				gc.lineTo(e.getX(), e.getY());
-				*/
 			}
 			else if(dropperTool.isSelected()) {
 				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
@@ -296,10 +304,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			else if(eraserTool.isSelected()) {
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
-				/*
-				gc.lineTo(e.getX(), e.getY());
-				gc.stroke();
-				*/
 			}
 		});
 		
@@ -312,11 +316,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			else if(eraserTool.isSelected()) {
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
-				/*
-				gc.lineTo(e.getX(), e.getY());
-				gc.stroke();
-				gc.closePath();
-				*/
 			}
 		});
 	}

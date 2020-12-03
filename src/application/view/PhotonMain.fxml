@@ -83,7 +83,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Button fx:id="undoButton" mnemonicParsing="false">
+                  <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handle">
                      <font>
                         <Font size="10.0" />
                      </font></Button>
@@ -91,7 +91,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Button fx:id="redoButton" mnemonicParsing="false">
+                  <Button fx:id="redoButton" mnemonicParsing="false" onAction="#handle">
                      <font>
                         <Font size="10.0" />
                      </font></Button>
