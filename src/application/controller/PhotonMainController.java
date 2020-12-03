@@ -129,7 +129,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		else if(event.getSource().equals(fileOpenMenu)) {
 
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Photon - Save");
+			fileChooser.setTitle("Photon - Open");
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
 
 			File file = fileChooser.showOpenDialog((Stage)circleTool.getScene().getWindow());			
@@ -408,6 +408,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
 		Parent settingsViewParent = settingsLoader.load();
 		Scene settingsViewScene = new Scene(settingsViewParent);
+		settingsViewScene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
 		
 		//gets stage information
 		Stage window = (Stage) circleTool.getScene().getWindow();
