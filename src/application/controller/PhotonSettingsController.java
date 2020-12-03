@@ -50,7 +50,7 @@ public class PhotonSettingsController {
 				apply(darkCSS, scene);
 				currentCSS = "/css/dark.css";
 			}
-			else if (toggleGroupValue == "Light")
+			else if (toggleGroupValue.equals("Light"))
 			{
 				apply(lightCSS, scene);
 				currentCSS = "/css/dark.css";

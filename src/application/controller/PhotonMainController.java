@@ -91,6 +91,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		}
 	}
 	
+	public void closeHandler() {
+		System.exit(0);
+	}
+	
 	public void paintBrushHandler(ActionEvent event) {
 		System.out.println("Brush");
 	}

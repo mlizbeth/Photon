@@ -60,12 +60,12 @@
           <Menu id="fileMenu" mnemonicParsing="false" text="File">
             <items>
                   <MenuItem mnemonicParsing="false" text="Open" />
-              <MenuItem id="fileMenuItemClose" mnemonicParsing="false" text="Close" />
+              <MenuItem id="fileMenuItemClose" mnemonicParsing="false" onAction="#closeHandler" text="Close" />
             </items>
           </Menu>
           <Menu id="settingsMenu" mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Settings" />
+              <MenuItem mnemonicParsing="false" onAction="#settingsButtonPushed" text="Settings" />
             </items>
           </Menu>
           <Menu id="helpMenu" mnemonicParsing="false" text="Help">
