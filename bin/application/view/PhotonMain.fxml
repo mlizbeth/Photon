@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -9,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
+<BorderPane id="rootWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonMainController">
    <left>
       <VBox id="toolsVBox" prefHeight="460.0" prefWidth="69.0" BorderPane.alignment="CENTER">
          <children>
@@ -18,35 +19,39 @@
                   <Menu mnemonicParsing="false" text="Tools" />
                </menus>
             </MenuBar>
-            <Button id="selectorTool" fx:id="selectorTool" mnemonicParsing="false" onAction="#handle">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+            <ToggleButton fx:id="selectorTool" mnemonicParsing="false">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
                </VBox.margin>
-            </Button>
-            <Button id="dropperTool" fx:id="dropperTool" mnemonicParsing="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toolsToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="dropperTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="bucketTool" fx:id="bucketTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="bucketTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="brushTool" fx:id="brushTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="brushTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="eraserTool" fx:id="eraserTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="eraserTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button id="stampTool" fx:id="stampTool" mnemonicParsing="false">
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="stampTool" mnemonicParsing="false" toggleGroup="$toolsToggleGroup">
                <VBox.margin>
                   <Insets left="25.0" top="10.0" />
-               </VBox.margin></Button>
-            <Button mnemonicParsing="false" text="Brush Size" />
+               </VBox.margin>
+            </ToggleButton>
          </children></VBox>
    </left>
    <top>
@@ -55,12 +60,12 @@
           <Menu id="fileMenu" mnemonicParsing="false" text="File">
             <items>
                   <MenuItem mnemonicParsing="false" text="Open" />
-              <MenuItem id="fileMenuItemClose" mnemonicParsing="false" text="Close" />
+              <MenuItem id="fileMenuItemClose" mnemonicParsing="false" onAction="#closeHandler" text="Close" />
             </items>
           </Menu>
           <Menu id="settingsMenu" mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Settings" />
+              <MenuItem mnemonicParsing="false" onAction="#settingsButtonPushed" text="Settings" />
             </items>
           </Menu>
           <Menu id="helpMenu" mnemonicParsing="false" text="Help">
@@ -70,7 +75,7 @@
           </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Button id="saveButton" fx:id="saveButton" mnemonicParsing="false">
+                  <Button id="saveButton" fx:id="saveButton" mnemonicParsing="false" onAction="#handle">
                      <font>
                         <Font size="10.0" />
                      </font></Button>
@@ -78,7 +83,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Button fx:id="undoButton" mnemonicParsing="false">
+                  <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handle">
                      <font>
                         <Font size="10.0" />
                      </font></Button>
@@ -86,7 +91,7 @@
             </Menu>
             <Menu mnemonicParsing="false">
                <graphic>
-                  <Button fx:id="redoButton" mnemonicParsing="false">
+                  <Button fx:id="redoButton" mnemonicParsing="false" onAction="#handle">
                      <font>
                         <Font size="10.0" />
                      </font></Button>
@@ -109,17 +114,27 @@
                <children>
                   <MenuBar id="layersMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Layers" />
+                        <Menu mnemonicParsing="false" text="Paintbrush &amp; Eraser Size" />
                      </menus>
                   </MenuBar>
+                  <Slider fx:id="brushSizePicker" layoutX="14.0" layoutY="40.0" majorTickUnit="8.0" max="72.0" min="1.0" prefHeight="33.0" prefWidth="376.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+                  <Label id="fontSizePickerLabel" fx:id="brushSizePickerLabel" layoutX="438.0" layoutY="41.0" text="72">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
             <AnchorPane id="bottomRightAnchorPane" prefHeight="101.0" prefWidth="400.0" GridPane.columnIndex="1">
                <children>
                   <MenuBar id="colorsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="600.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Colors" />
+                        <Menu mnemonicParsing="false" text="Filter Settings (WIP)" />
                      </menus>
                   </MenuBar>
+                  <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" text="Filter 1" />
+                  <Button layoutX="121.0" layoutY="39.0" mnemonicParsing="false" text="Filter 2" />
+                  <Button layoutX="222.0" layoutY="39.0" mnemonicParsing="false" text="Filter 3" />
+                  <Button layoutX="322.0" layoutY="39.0" mnemonicParsing="false" text="Filter 4" />
                </children></AnchorPane>
          </children>
       </GridPane>
@@ -134,34 +149,73 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox id="objectHBox" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
-                     <menus>
-                        <Menu mnemonicParsing="false" text="Objects" />
-                     </menus>
-                  </MenuBar>
-               </children>
-            </HBox>
             <VBox id="propertyVBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <MenuBar id="propertyMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
                      <menus>
-                        <Menu mnemonicParsing="false" text="Properties" />
+                        <Menu mnemonicParsing="false" text="Font &amp; Colors" />
                      </menus>
                   </MenuBar>
+                  <Label id="fontTypeLabel" fx:id="fontLabel" text="Font Type">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="72.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="fontPicker" prefWidth="175.0" promptText="Times New Roman">
+                     <VBox.margin>
+                        <Insets left="13.0" top="10.0" />
+                     </VBox.margin></ComboBox>
+                  <Label id="fontSizeLabel" fx:id="fontSizeLabel" text="Font Size">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="75.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Slider fx:id="fontSizePicker" majorTickUnit="15.0" maxHeight="-Infinity" maxWidth="-Infinity" min="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="185.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="12.0">
+                     <VBox.margin>
+                        <Insets left="8.0" top="5.0" />
+                     </VBox.margin>
+                  </Slider>
+                  <Label id="fontSizeSliderLabel" fx:id="fontSizeCountLabel" text="100">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="100.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ColorPicker fx:id="colorPicker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets left="25.0" top="10.0" />
+                     </VBox.margin></ColorPicker>
                </children>
             </VBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
+                     <menus>
+                        <Menu mnemonicParsing="false" text="Objects (WIP)" />
+                     </menus>
+                  </MenuBar>
+                  <Button id="circleToolButton" fx:id="circleTool" layoutX="64.0" layoutY="42.0" mnemonicParsing="false" />
+                  <Button id="squareToolButton" fx:id="squareTool" layoutX="64.0" layoutY="98.0" mnemonicParsing="false" />
+                  <Button id="triangleToolButton" fx:id="triangleTool" layoutX="64.0" layoutY="153.0" mnemonicParsing="false" />
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
    </right>
    <center>
-      <Pane id="drawZonePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane id="drawZonePane" prefHeight="357.0" prefWidth="507.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane layoutX="-1.0" layoutY="-1.0" prefHeight="660.0" prefWidth="900.0">
+            <StackPane id="drawZoneStack" layoutX="10.0" layoutY="10.0" prefHeight="646.0" prefWidth="886.0">
                <children>
-                  <Canvas id="drawCanvas" fx:id="drawZone" height="600.0" width="750.0" />
-                  <ImageView id="drawImage" fx:id="drawImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                  <Canvas id="drawCanvas" fx:id="drawZone" height="646.0" layoutX="10.0" layoutY="10.0" width="886.0" />
                </children>
             </StackPane>
          </children>

@@ -8,12 +8,30 @@
 	-fx-background-color: rgb(40,41,35);
 }
 
-#toolsVBox {
+#drawZoneStack {
+	-fx-background-color: #FFFFFF;
+}
+
+.tooltip {
+	-fx-font-size: 16;
+}
+
+.slider .axis {
+	-fx-tick-label-fill: white;
+}
+
+
+#saveButton, #redoButton, #undoButton {
+	-fx-background-color: rgb(109,110,106);
+	-fx-accent: #FFFFFF;
+	-fx-focus-color: #FFFFFF;
+}
+
+#toolsVBox, #settingsHBox {
 	-fx-border-color: rgb(63,63,63);
 	-fx-background-color: rgb(40,41,35);
 	-fx-border-width: 2;
 }
-
 
 #rightGridPane {
 	-fx-border-color: rgb(63,63,63);
@@ -43,10 +61,30 @@
 	-fx-border-color: rgb(63,63,63);
 }
 
-#toolsVBox .button {
+#circleToolButton, #squareToolButton, #triangleToolButton {
+	-fx-background-color: rgb(40,41,35); 
+}
+
+#toolsVBox .button, #toolsVBox .toggle-button {
 	-fx-background-color: rgb(40,41,35); 
 	-fx-accent: #FFFFFF;
 	-fx-focus-color: #FFFFFF;
+}
+
+#settingsOkButton, #settingsApplyButton, #settingsCancelButton {
+	-fx-text-fill: #FFFFFF;
+	-fx-border-color: rgb(63,63,63);
+	-fx-background-color: rgb(63,63,63);
+}
+
+#settingsAnchorPane, #settingsVBox {
+	-fx-background-color: rgb(40,41,35);
+}
+
+#settingsRadioButton {
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: rgb(63,63,63);
+	-fx-accent: rgb(40,41,35);
 }
 
 #mainMenuBar {
@@ -62,12 +100,19 @@
 	-fx-text-fill: #FFFFFF;
 }
 
-
-#toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
+#toolsMenu .label, #objectsMenu .label, #layersMenu .label, #colorsMenu .label, #themeLabel {
 	-fx-text-fill: #FFFFFF;
 	-fx-padding: 0 0 0 -10;
 }
 
+#propertyMenu .label, #fontTypeLabel, #fontSizeLabel, #fontSizeSliderLabel {
+	-fx-text-fill: #FFFFFF;
+	-fx-padding: 0 0 0 -10;
+}
+
+#fontSizePickerLabel {
+	-fx-text-fill: #FFFFFF;
+}
 
 #fileMenu .label, #settingsMenu .label, #helpMenu .label {
 	-fx-text-fill: #FFFFFF;
@@ -86,10 +131,4 @@
 
 #fileMenu .menu-item, #settingsMenu .menu-item, #helpMenu .menu-item {
 	-fx-padding: 5 40 5 10;
-}
-
-#saveButton, #redoButton, #undoButton {
-	-fx-background-color: rgb(109,110,106);
-	-fx-accent: #FFFFFF;
-	-fx-focus-color: #FFFFFF;
 }

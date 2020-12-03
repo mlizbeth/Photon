@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="272.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonSettingsController">
-  <children>
-    <TitledPane animated="false" layoutY="2.0" prefHeight="278.0" prefWidth="345.0" styleshets="@../../dark.css" text="Settings">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-          <children>
-            <Label fx:id="themeLabel" layoutX="53.0" layoutY="73.0" text="Theme" />
-            <Button fx:id="okButton" layoutX="87.0" layoutY="184.0" mnemonicParsing="false" text="Ok" />
-            <Button fx:id="applyButton" layoutX="147.0" layoutY="184.0" mnemonicParsing="false" text="Apply" />
-            <Button fx:id="cancelButton" layoutX="221.0" layoutY="183.0" mnemonicParsing="false" text="Cancel" />
-            <ColorPicker fx:id="colorPicker" layoutX="209.0" layoutY="69.0" />
-          </children>
-        </AnchorPane>
-      </content>
-    </TitledPane>
-  </children>
-<AnchorPane>
+<AnchorPane id="rootWindow" prefHeight="272.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PhotonSettingsController">
+   <children>
+    <AnchorPane id="settingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="272.0" prefWidth="345.0">
+         <children>
+            <Label id="themeLabel" fx:id="themeLabel" layoutX="53.0" layoutY="88.0" text="Theme">
+               <font>
+                  <Font size="21.0" />
+               </font></Label>
+            <VBox id="settingsVBox" layoutX="207.0" layoutY="73.0" prefHeight="58.0" prefWidth="83.0" spacing="10.0">
+               <children>
+                  <RadioButton id="settingsRadioButton" fx:id="darkRadioButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="80.0" selected="true" text="Dark">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="themeGroup" />
+                     </toggleGroup>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton id="settingsRadioButton" fx:id="lightRadioButton" mnemonicParsing="false" prefHeight="22.0" prefWidth="80.0" text="Light" toggleGroup="$themeGroup">
+                     <font>
+                        <Font size="16.0" />
+                     </font></RadioButton>
+               </children>
+            </VBox>
+            <HBox id="settingsHBox" layoutY="202.0" prefHeight="79.0" prefWidth="345.0" spacing="40.0" AnchorPane.leftAnchor="0.0">
+               <children>
+                  <Button id="settingsOkButton" fx:id="okButton" mnemonicParsing="false" onAction="#okButtonPushed" text="Ok">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button id="settingsApplyButton" fx:id="applyButton" mnemonicParsing="false" onAction="#applyButtonPushed" text="Apply">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button id="settingsCancelButton" fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonPushed" text="Cancel">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="50.0" right="40.0" top="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+   <stylesheets>
+      <URL value="@../../../bin/css/dark.css" />
+      <URL value="@../../../bin/css/light.css" />
+   </stylesheets>
+</AnchorPane>
