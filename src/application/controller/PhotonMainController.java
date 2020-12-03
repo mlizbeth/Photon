@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
+
 import javax.imageio.ImageIO;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -34,9 +38,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.image.WritableImage;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Transform;
@@ -59,13 +60,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Button saveButton, undoButton, redoButton; 
 	@FXML
-	private MenuItem settingsMenu, menuItemOpen, menuItemSaveAs;
+	private MenuItem settingsMenu, menuItemOpen, menuItemSaveAs, helpMenuAbout;
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private Button circleTool, squareTool, triangleTool;
-	@FXML
-	private ToggleButton selectorTool, dropperTool, bucketTool, brushTool, eraserTool, stampTool;
+	private ToggleButton selectorTool, dropperTool, bucketTool, brushTool, eraserTool, stampTool, circleTool, squareTool, triangleTool;
 	@FXML
 	private ToggleGroup toolsToggleGroup;
 	@FXML
@@ -88,12 +87,14 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		if(event.getSource().equals(undoButton)) {
 			if(undoStack.size() == 1) {
 				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage temp = scaleUpImage(drawZone, 2);
 				gc.clearRect(0, 0, drawZone.getWidth(), drawZone.getHeight());
 				redoStack.push(temp);
 				undoStack.pop(); //remove the last undo
 			}
 			else if(undoStack.size() > 1) {
 				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage temp = scaleUpImage(drawZone, 2);
 				gc.clearRect(0, 0, drawZone.getWidth(), drawZone.getHeight());
 				gc.drawImage(undoStack.pop(), 0, 0);
 				redoStack.push(temp);
@@ -102,6 +103,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		else if(event.getSource().equals(redoButton)) {
 			if(redoStack.size() != 0) {
 				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage temp = scaleUpImage(drawZone, 2);
 				undoStack.push(temp);
 				gc.drawImage(redoStack.pop(), 0, 0);
 			}
@@ -158,6 +160,17 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 					ioException.printStackTrace();
 				}
 			}			
+		}
+		else if(event.getSource().equals(helpMenuAbout)) {
+			System.out.println("Test");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Photon Photo Editor");
+			alert.setHeaderText(null);
+			alert.setContentText("This program was created by: " + "\n" 
+						+ "Madeline 'Maddie' Kotara - MainController/Paint Logic/Main GUI/Dark mode" + "\n" 
+						+ "Graeson Smith - File saving/File opening/Canvas filters" + "\n" 
+						+ "Samantha 'Cee' Jackman - Settings Menu/Theme Switcher/Light mode");
+			alert.showAndWait();
 		}
 	}
 
@@ -287,6 +300,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		selectorTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
 				selectorTool.setStyle("-fx-background-color: white;");
 			}
 			else {
@@ -305,6 +323,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		bucketTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
 				bucketTool.setStyle("-fx-background-color: white;");
 			}
 			else {
@@ -338,6 +361,49 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				stampTool.setStyle(null);
 			}
 		});
+		
+		squareTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
+				squareTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				squareTool.setStyle(null);
+			}
+		});
+		
+		triangleTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
+				triangleTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				triangleTool.setStyle(null);
+			}
+		});
+		
+		circleTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
+				circleTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				circleTool.setStyle(null);
+			}
+		});
+		
 	}
 	
 	private void initializeCanvas() {
@@ -353,12 +419,16 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		drawZone.setOnMousePressed(e -> {
 			if(brushTool.isSelected()) {
 				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage snapshot = scaleUpImage(drawZone, 2);
 				undoStack.push(snapshot);
 				gc.setStroke(colorPicker.getValue());
 				gc.beginPath();
 				gc.lineTo(e.getX(), e.getY());
 			}
 			else if(eraserTool.isSelected()) {
+				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage snapshot = scaleUpImage(drawZone, 2);
+				undoStack.push(snapshot);
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
 			}
@@ -370,6 +440,9 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			else if(stampTool.isSelected()) {
 				//TODO
 				//create the textbox at starting coordinate
+				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage snapshot = scaleUpImage(drawZone, 2);
+				undoStack.push(snapshot);
 				gc.setLineWidth(1);
 				gc.setFont(Font.font(fontPicker.getValue(), fontSizePicker.getValue()));
 				System.out.println(fontSizePicker.getValue());
@@ -433,7 +506,25 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		return imageView.snapshot(null, null);
 	}
 	
-	private Image scaleUpImage(Node node, int scale) {
+	private WritableImage scaleUpImage(Canvas canvas, double pixelScale) {
+		WritableImage img = new WritableImage((int)Math.rint(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
+		SnapshotParameters params = new SnapshotParameters();
+		params.setTransform(Transform.scale(pixelScale, pixelScale));
+		System.out.println(img.getWidth() + " " + img.getHeight());
+		return canvas.snapshot(params, img);
+	}
+	
+	private void scaleUpImageTest(Canvas canvas, double pixelScale) {
+		WritableImage img = new WritableImage((int)Math.rint(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
+		SnapshotParameters params = new SnapshotParameters();
+		params.setTransform(Transform.scale(pixelScale, pixelScale));
+		System.out.println(img.getWidth() + " " + img.getHeight());
+		Image test = canvas.snapshot(params, img);
+		
+	}
+	
+	private Image scaleUpImage2(Node node, int scale) {
+		
 		final Bounds bounds = node.getLayoutBounds();
 
 		System.out.println(bounds.getWidth() + " " + bounds.getHeight());

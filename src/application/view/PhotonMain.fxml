@@ -70,7 +70,7 @@
           </Menu>
           <Menu id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="helpMenuAbout" mnemonicParsing="false" onAction="#handle" text="About" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false">
@@ -200,16 +200,16 @@
                   </TextField>
                </children>
             </VBox>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane id="objectsPane" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <MenuBar id="objectsMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0">
                      <menus>
                         <Menu mnemonicParsing="false" text="Objects (WIP)" />
                      </menus>
                   </MenuBar>
-                  <Button id="circleToolButton" fx:id="circleTool" layoutX="64.0" layoutY="42.0" mnemonicParsing="false" />
-                  <Button id="squareToolButton" fx:id="squareTool" layoutX="64.0" layoutY="98.0" mnemonicParsing="false" />
-                  <Button id="triangleToolButton" fx:id="triangleTool" layoutX="64.0" layoutY="153.0" mnemonicParsing="false" />
+                  <ToggleButton fx:id="circleTool" layoutX="64.0" layoutY="42.0" mnemonicParsing="false" toggleGroup="$toolsToggleGroup" />
+                  <ToggleButton fx:id="squareTool" layoutX="64.0" layoutY="103.0" mnemonicParsing="false" toggleGroup="$toolsToggleGroup" />
+                  <ToggleButton fx:id="triangleTool" layoutX="64.0" layoutY="165.0" mnemonicParsing="false" toggleGroup="$toolsToggleGroup" />
                </children>
             </AnchorPane>
          </children>
