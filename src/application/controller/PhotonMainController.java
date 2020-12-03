@@ -2,7 +2,6 @@ package application.controller;
 
 import java.io.IOException;
 import java.util.Stack;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -11,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,15 +20,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
@@ -40,7 +41,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Slider fontSizePicker, brushSizePicker;
 	@FXML
-	private Button saveButton, undoButton, redoButton, settingsButton; 
+	private Button saveButton, undoButton, redoButton; 
+	@FXML
+	private MenuItem settingsMenu;
+	@FXML
+	private MenuBar menuBar;
 	@FXML
 	private Button circleTool, squareTool, triangleTool;
 	@FXML
@@ -84,9 +89,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				gc.drawImage(redoStack.pop(), 0, 0);
 			}
 		}
-		else if(event.getSource().equals(saveButton)) {
-			//gc.drawImage(scaleUpImage(drawZone, 6), 0, 0);
-		}
 	}
 	
 	public void paintBrushHandler(ActionEvent event) {
@@ -101,8 +103,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		initializeListeners();
 		createTooltips();
 		initializeCanvas();
-		
-		
+	
 		/*
 		 * TODO
 		 * Shapes/Tools/Stuff
@@ -332,7 +333,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		Scene settingsViewScene = new Scene(settingsViewParent);
 		
 		//gets stage information
-		Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Stage window = (Stage) circleTool.getScene().getWindow();
 		
 		window.setScene(settingsViewScene);
 		window.setTitle("Settings");
@@ -340,37 +341,12 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
-	private Image scaleDownImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
+	private Image scaleImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
 		ImageView imageView = new ImageView(sourceImg);
 		imageView.setPreserveRatio(preserveRatio);
 		imageView.setFitWidth(targetWidth);
 		imageView.setFitHeight(targetHeight);
 		return imageView.snapshot(null, null);
-	}
-	
-	private Image scaleUpImage(Node node, int scale) {
-		final Bounds bounds = node.getLayoutBounds();
-		
-		System.out.println(bounds.getWidth() + " " + bounds.getHeight());
-		
-		WritableImage scaledWritableImage = new WritableImage(
-				(int) Math.round(bounds.getWidth() * scale),
-				(int) Math.round(bounds.getHeight() * scale));
-		
-		System.out.println(scaledWritableImage.getHeight() + " " + scaledWritableImage.getWidth());
-		
-		SnapshotParameters params = new SnapshotParameters();
-		params.setTransform(Transform.scale(scale, scale));
-		
-		ImageView scaledImageView = new ImageView(node.snapshot(params, scaledWritableImage));
-		scaledImageView.setFitWidth(bounds.getWidth());
-		scaledImageView.setFitHeight(bounds.getHeight());
-		
-		
-		
-		
-		
-		return scaledImageView.snapshot(null, null);
 	}
 
 }
