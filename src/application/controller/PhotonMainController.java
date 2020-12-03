@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,10 +29,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
@@ -88,6 +91,9 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				undoStack.push(temp);
 				gc.drawImage(redoStack.pop(), 0, 0);
 			}
+		}
+		else if(event.getSource().equals(saveButton)) {
+			//gc.drawImage(scaleUpImage(drawZone, 6), 0, 0);
 		}
 	}
 	
@@ -331,7 +337,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	}
 	
 	public void settingsButtonPushed(ActionEvent event) throws IOException {
-		
 		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
 		Parent settingsViewParent = settingsLoader.load();
 		Scene settingsViewScene = new Scene(settingsViewParent);
@@ -342,7 +347,6 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		window.setScene(settingsViewScene);
 		window.setTitle("Settings");
 		window.show();
-		
 	}
 	
 	private Image scaleImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
@@ -352,5 +356,25 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		imageView.setFitHeight(targetHeight);
 		return imageView.snapshot(null, null);
 	}
+	
+	private Image scaleUpImage(Node node, int scale) {
+		final Bounds bounds = node.getLayoutBounds();
 
+		System.out.println(bounds.getWidth() + " " + bounds.getHeight());
+
+		WritableImage scaledWritableImage = new WritableImage(
+				(int) Math.round(bounds.getWidth() * scale),
+				(int) Math.round(bounds.getHeight() * scale));
+
+		System.out.println(scaledWritableImage.getHeight() + " " + scaledWritableImage.getWidth());
+
+		SnapshotParameters params = new SnapshotParameters();
+		params.setTransform(Transform.scale(scale, scale));
+
+		ImageView scaledImageView = new ImageView(node.snapshot(params, scaledWritableImage));
+		scaledImageView.setFitWidth(bounds.getWidth());
+		scaledImageView.setFitHeight(bounds.getHeight());
+
+		return scaledImageView.snapshot(null, null);
+	}
 }
