@@ -1,0 +1,64 @@
+/*
+ * sublime dark rgb(40,41,35)
+ * sublime light rgb(109,110,106)
+ * sublime medium rgb(66,67,62) 
+*/
+
+.root {
+	-fx-background-color: #F4F4F4;
+}
+
+#toolsVBox, #rightGridPane, #bottomGridPane {
+	-fx-border-color: red;
+}
+
+#objectHBox {
+	-fx-border-color: blue;
+}
+
+#bottomLeftAnchorPane, #bottomRightAnchorPane {
+	-fx-border-color: blue;
+}
+
+#mainMenuBar {
+	-fx-background-color: #F4F4F4; 
+	-fx-text-fill: #292929;
+	/*-fx-focus-color: #FFFFFF;*/
+	-fx-accent: #0093FF;
+}
+
+#toolsMenu, #objectsMenu, #propertyMenu, #layersMenu, #colorsMenu {
+	-fx-background-color: #F4F4F4;
+	-fx-accent: #0093FF;
+	-fx-text-fill: #292929;
+}
+
+
+#toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
+	-fx-text-fill: #292929;
+	-fx-padding: 0 0 0 -10;
+}
+
+
+#fileMenu .label, #settingsMenu .label, #helpMenu .label {
+	-fx-text-fill:#292929;
+	-fx-font-size: 16px;
+	-fx-focus-color: #FFFFFF;
+	-fx-accent: #FFFFFF;
+	-fx-padding: 5 0 5 0;
+}
+
+#fileMenu .context-menu, #settingsMenu .context-menu, #helpMenu .context-menu {
+	-fx-text-fill: #292929;
+	-fx-background-color: #F4F4F4;
+	/*-fx-focus-color: #FFFFFF;*/
+	-fx-accent: #0093FF;
+}
+
+#fileMenu .menu-item, #settingsMenu .menu-item, #helpMenu .menu-item {
+	-fx-padding: 5 40 5 10;
+}
+
+#saveButton, #redoButton, #undoButton {
+	-fx-background-color: #F4F4F4;
+}
