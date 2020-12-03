@@ -17,8 +17,8 @@
 	-fx-font-size: 16;
 }
 
-.slider .axis {
-	-fx-tick-label-fill: white;
+.slider .axis, .track {
+	-fx-tick-label-fill: black;
 }
 
 
@@ -97,7 +97,7 @@
 
 #toolsMenu, #objectsMenu, #propertyMenu, #layersMenu, #colorsMenu {
 	-fx-background-color: #d0d0d0;
-	-fx-accent: #B0B0B0;
+	-fx-accent: #d0d0d0;
 	-fx-text-fill: #292929;
 }
 
@@ -112,7 +112,7 @@
 }
 
 #fontSizePickerLabel {
-	-fx-text-fill: #FFFFFF;
+	-fx-text-fill: #292929;
 }
 
 #fileMenu .label, #settingsMenu .label, #helpMenu .label {
