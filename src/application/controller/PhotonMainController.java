@@ -59,7 +59,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Button saveButton, undoButton, redoButton; 
 	@FXML
-	private MenuItem settingsMenu, menuItemOpen, menuItemSaveAs, fileOpenMenu, fileCloseMenu;
+	private MenuItem settingsMenu, menuItemOpen, menuItemSaveAs;
 	@FXML
 	private MenuBar menuBar;
 	@FXML
@@ -126,7 +126,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				}
 			}			
 		}
-		else if(event.getSource().equals(fileOpenMenu)) {
+		else if(event.getSource().equals(menuItemOpen)) {
 
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Photon - Open");
@@ -140,19 +140,25 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			}						
 			
 		} else if(event.getSource().equals(saveButton)) {
-			
+
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Photon - Save");
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-
-			File file = fileChooser.showOpenDialog((Stage)circleTool.getScene().getWindow());			
+			File file = fileChooser.showSaveDialog((Stage)circleTool.getScene().getWindow());
+			
 			if(file != null) {
-
-				Image drawingImage = new Image(file.toURI().toString());
-				gc.drawImage(scaleImage(drawingImage, 886, 646, true), 0, 0);
-			}									
+				String stringName = file.getName();
+				String stringExtension = stringName.substring(1+stringName.lastIndexOf(".")).toLowerCase();
+				BufferedImage bufferedImage = SwingFXUtils.fromFXImage(drawZone.snapshot(new SnapshotParameters(), null), null);
+				
+				try {
+					ImageIO.write(bufferedImage, stringExtension, file);
+				} catch (IOException ioException) {
+					
+					ioException.printStackTrace();
+				}
+			}			
 		}
-
 	}
 
 	@FXML
