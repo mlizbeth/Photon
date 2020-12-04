@@ -119,7 +119,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Photon - Save");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Portable Network Graphics", "*.png"));
 			File file = fileChooser.showSaveDialog((Stage)circleTool.getScene().getWindow());
 			
 			if(file != null) {
@@ -152,7 +152,7 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Photon - Save");
-			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Portable Network Graphics", "*.png"));
 			File file = fileChooser.showSaveDialog((Stage)circleTool.getScene().getWindow());
 			
 			if(file != null) {
