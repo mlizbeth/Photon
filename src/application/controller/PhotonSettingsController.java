@@ -1,3 +1,11 @@
+/*
+ * Author: Samantha Jackman
+ * Lsk082
+ * Project: Photon Photo Editor
+ * Date: 12/3/20
+ * CS 3443 Section 001
+ */
+
 package application.controller;
 
 import java.io.IOException;
