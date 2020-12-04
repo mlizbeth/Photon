@@ -7,6 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
+/**
+ * Main class responsible for creating the JavaFX Application, applies custom CSS rules for a default dark theme
+ * 
+ * @author Madeline Kotara - duk128
+ * @version 1.0
+ * @since 12-3-2020
+ *
+ */
+
 public class PhotonMain extends Application {
 
 	private final String DARK_CSS = "/css/dark.css";
