@@ -1,64 +1,135 @@
 /*
- * sublime dark rgb(40,41,35)
+ * sublime dark #F4F4F4
  * sublime light rgb(109,110,106)
  * sublime medium rgb(66,67,62) 
 */
 
+
 .root {
-	-fx-background-color: #F4F4F4;
+	-fx-background-color: #d0d0d0;
 }
 
-#toolsVBox, #rightGridPane, #bottomGridPane {
-	-fx-border-color: red;
+#drawZoneStack {
+	-fx-background-color: #FFFFFF;
+}
+
+.tooltip {
+	-fx-font-size: 16;
+}
+
+.slider .axis, .track {
+	-fx-tick-label-fill: black;
+}
+
+
+#saveButton, #redoButton, #undoButton {
+	-fx-background-color: #d0d0d0;
+	-fx-accent: #B0B0B0;
+	-fx-focus-color: #FFFFFF;
+}
+
+#toolsVBox, #settingsHBox {
+	-fx-border-color: #B0B0B0;
+	-fx-background-color: #d0d0d0;
+	-fx-border-width: 2;
+}
+
+#rightGridPane {
+	-fx-border-color: #B0B0B0;
+	-fx-border-width: 2;
+}
+
+#bottomGridPane {
+	-fx-border-color: #B0B0B0;
+	-fx-border-width: 2;
+}
+
+#bottomLeftAnchorPane {
+	-fx-border-color: #B0B0B0;
+	-fx-border-width: 2;
+}
+
+#bottomRightAnchorPane {
+	-fx-border-color: #B0B0B0;
+	-fx-border-width: 2;
 }
 
 #objectHBox {
-	-fx-border-color: blue;
+	
 }
 
-#bottomLeftAnchorPane, #bottomRightAnchorPane {
-	-fx-border-color: blue;
+#propetyHBox {
+	-fx-border-color: #B0B0B0;
+}
+
+#circleToolButton, #squareToolButton, #triangleToolButton {
+	-fx-background-color: #d0d0d0; 
+}
+
+#toolsVBox .button, #toolsVBox .toggle-button, #objectsPane .toggle-button {
+	-fx-background-color: #d0d0d0; 
+	-fx-accent: #B0B0B0;
+	-fx-focus-color: #FFFFFF;
+}
+
+#settingsOkButton, #settingsApplyButton, #settingsCancelButton {
+	-fx-text-fill: #292929;
+	-fx-border-color: #B0B0B0;
+	-fx-background-color: #d0d0d0;
+}
+
+#settingsAnchorPane, #settingsVBox {
+	-fx-background-color: #d0d0d0;
+}
+
+#settingsRadioButton {
+	-fx-text-fill: #292929;
+	-fx-background-color: #d0d0d0;
+	-fx-accent: #B0B0B0;
 }
 
 #mainMenuBar {
-	-fx-background-color: #F4F4F4; 
+	-fx-background-color: #d0d0d0; 
 	-fx-text-fill: #292929;
 	/*-fx-focus-color: #FFFFFF;*/
-	-fx-accent: #0093FF;
+	-fx-accent: #B0B0B0;
 }
 
 #toolsMenu, #objectsMenu, #propertyMenu, #layersMenu, #colorsMenu {
-	-fx-background-color: #F4F4F4;
-	-fx-accent: #0093FF;
+	-fx-background-color: #d0d0d0;
+	-fx-accent: #d0d0d0;
 	-fx-text-fill: #292929;
 }
 
-
-#toolsMenu .label, #objectsMenu .label, #propertyVBox .label, #layersMenu .label, #colorsMenu .label {
+#toolsMenu .label, #objectsMenu .label, #layersMenu .label, #colorsMenu .label, #themeLabel {
 	-fx-text-fill: #292929;
 	-fx-padding: 0 0 0 -10;
 }
 
+#propertyMenu .label, #fontTypeLabel, #fontSizeLabel, #fontSizeSliderLabel {
+	-fx-text-fill: #292929;
+	-fx-padding: 0 0 0 -10;
+}
+
+#fontSizePickerLabel {
+	-fx-text-fill: #292929;
+}
 
 #fileMenu .label, #settingsMenu .label, #helpMenu .label {
-	-fx-text-fill:#292929;
+	-fx-text-fill: #292929;
 	-fx-font-size: 16px;
 	-fx-focus-color: #FFFFFF;
-	-fx-accent: #FFFFFF;
+	-fx-accent: #B0B0B0;
 	-fx-padding: 5 0 5 0;
 }
 
 #fileMenu .context-menu, #settingsMenu .context-menu, #helpMenu .context-menu {
 	-fx-text-fill: #292929;
-	-fx-background-color: #F4F4F4;
+	-fx-background-color: #d0d0d0;
 	/*-fx-focus-color: #FFFFFF;*/
-	-fx-accent: #0093FF;
+	-fx-accent: #B0B0B0;
 }
 
 #fileMenu .menu-item, #settingsMenu .menu-item, #helpMenu .menu-item {
 	-fx-padding: 5 40 5 10;
-}
-
-#saveButton, #redoButton, #undoButton {
-	-fx-background-color: #F4F4F4;
 }

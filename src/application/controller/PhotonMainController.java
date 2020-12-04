@@ -1,11 +1,15 @@
 package application.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
+import javax.imageio.ImageIO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -24,18 +30,29 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Transform;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
+/**
+ * Photon Photo Editor - AKA the next Photoshop! A simple paint program that allows you to import and image for editing, and create your own from scratch. Supports undo/redo operations, custom brush sizes,
+ * fonts, etc.
+ * @author Madeline Kotara - duk128
+ * @version 1.0
+ * @since 12-3-2020
+ * @see java.util.Stack
+ * @see javafx.scene.canvas.Canvas
+ * @see javafx.scene.Node
+ */
 
 public class PhotonMainController implements EventHandler<ActionEvent> {
 
@@ -46,19 +63,19 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	@FXML
 	private Button saveButton, undoButton, redoButton; 
 	@FXML
-	private MenuItem settingsMenu;
+	private MenuItem settingsMenu, menuItemOpen, menuItemSaveAs, helpMenuAbout;
 	@FXML
 	private MenuBar menuBar;
 	@FXML
-	private Button circleTool, squareTool, triangleTool;
-	@FXML
-	private ToggleButton selectorTool, dropperTool, bucketTool, brushTool, eraserTool, stampTool;
+	private ToggleButton selectorTool, dropperTool, bucketTool, brushTool, eraserTool, stampTool, circleTool, squareTool, triangleTool;
 	@FXML
 	private ToggleGroup toolsToggleGroup;
 	@FXML
 	private ColorPicker colorPicker;
 	@FXML
 	private Canvas drawZone;
+	@FXML
+	private TextField stampText;
 	@FXML
 	private ComboBox<String> fontPicker;
 	private final ObservableList<String> fonts = FXCollections.observableArrayList(Font.getFamilies());
@@ -68,18 +85,23 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	private Stack<Image> undoStack = new Stack<>();
 	private Stack<Image> redoStack = new Stack<>();
 	
+	/**
+	 * Custom event handlers to respond to mouse clicks
+	 */
+	
 	@Override
 	public void handle(ActionEvent event) {
 		if(event.getSource().equals(undoButton)) {
 			if(undoStack.size() == 1) {
 				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage temp = scaleUpImage(drawZone, 2);
 				gc.clearRect(0, 0, drawZone.getWidth(), drawZone.getHeight());
 				redoStack.push(temp);
 				undoStack.pop(); //remove the last undo
-				
 			}
 			else if(undoStack.size() > 1) {
 				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage temp = scaleUpImage(drawZone, 2);
 				gc.clearRect(0, 0, drawZone.getWidth(), drawZone.getHeight());
 				gc.drawImage(undoStack.pop(), 0, 0);
 				redoStack.push(temp);
@@ -88,23 +110,77 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		else if(event.getSource().equals(redoButton)) {
 			if(redoStack.size() != 0) {
 				Image temp = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage temp = scaleUpImage(drawZone, 2);
 				undoStack.push(temp);
 				gc.drawImage(redoStack.pop(), 0, 0);
 			}
 		}
-		else if(event.getSource().equals(saveButton)) {
-			//gc.drawImage(scaleUpImage(drawZone, 6), 0, 0);
+		else if(event.getSource().equals(this.menuItemSaveAs)) {
+			
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Photon - Save");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Portable Network Graphics", "*.png"));
+			File file = fileChooser.showSaveDialog((Stage)circleTool.getScene().getWindow());
+			
+			if(file != null) {
+				String stringName = file.getName();
+				String stringExtension = stringName.substring(1+stringName.lastIndexOf(".")).toLowerCase();
+				BufferedImage bufferedImage = SwingFXUtils.fromFXImage(drawZone.snapshot(new SnapshotParameters(), null), null);
+				
+				try {
+					ImageIO.write(bufferedImage, stringExtension, file);
+				} catch (IOException ioException) {
+					
+					ioException.printStackTrace();
+				}
+			}			
+		}
+		else if(event.getSource().equals(menuItemOpen)) {
+
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Photon - Open");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+
+			File file = fileChooser.showOpenDialog((Stage)circleTool.getScene().getWindow());			
+			if(file != null) {
+
+				Image drawingImage = new Image(file.toURI().toString());
+				gc.drawImage(scaleImage(drawingImage, 886, 646, true), 0, 0);
+			}						
+			
+		} else if(event.getSource().equals(saveButton)) {
+
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Photon - Save");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Portable Network Graphics", "*.png"));
+			File file = fileChooser.showSaveDialog((Stage)circleTool.getScene().getWindow());
+			
+			if(file != null) {
+				String stringName = file.getName();
+				String stringExtension = stringName.substring(1+stringName.lastIndexOf(".")).toLowerCase();
+				BufferedImage bufferedImage = SwingFXUtils.fromFXImage(drawZone.snapshot(new SnapshotParameters(), null), null);
+				
+				try {
+					ImageIO.write(bufferedImage, stringExtension, file);
+				} catch (IOException ioException) {
+					
+					ioException.printStackTrace();
+				}
+			}			
+		}
+		else if(event.getSource().equals(helpMenuAbout)) {
+			System.out.println("Test");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Photon Photo Editor");
+			alert.setHeaderText(null);
+			alert.setContentText("This program was created by: " + "\n" 
+						+ "Madeline 'Maddie' Kotara - MainController/Paint Logic/Main GUI/Dark mode" + "\n" 
+						+ "Graeson Smith - File saving/File opening/Canvas filters" + "\n" 
+						+ "Samantha 'Cee' Jackman - Settings Menu/Theme Switcher/Light mode");
+			alert.showAndWait();
 		}
 	}
-	
-	public void closeHandler() {
-		System.exit(0);
-	}
-	
-	public void paintBrushHandler(ActionEvent event) {
-		System.out.println("Brush");
-	}
-	
+
 	@FXML
 	void initialize() {
 		
@@ -116,17 +192,21 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 	
 		/*
 		 * TODO
-		 * Shapes/Tools/Stuff
-		 * Add layers to canvas (if time permits)
-		 * load image onto canvas
-		 * save image + canvas contents to 1 image file
-		 * Fix drawing to ignore the second mouse button if one is pressed
-		 * Brush sizes
-		 * Text Tool
-		 * Filters (if time permits)
+		 * Shapes
+		 * Add image layers (unlikely)
+		 * Fix drawing to ignore the second mouse button if one is pressed 
+		 * Filters (unlikely)
+		 * selection tool (unlikely)
+		 * undo/redo options for other tool operations
+		 * paint bucket tool (unlikely)
+		 * fix quality loss on undo/redo (unlikely)
 		 */
 		
 	}
+	
+	/**
+	 * Initializes all buttons and loads the related image as the graphic for the button
+	 */
 	
 	private void initializeImages() {
 		saveImage = new ImageView(new Image(getClass().getResourceAsStream("/img/save-white.png")));
@@ -191,6 +271,10 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 	}
 	
+	/**
+	 * Applies tooltips to the previous buttons so the user can see what each tool does by holding their mouse over it
+	 */
+	
 	private void createTooltips() {
 		Tooltip selectorTooltip = new Tooltip("Allows you to select and move objects on the canvas");
 		Tooltip eyedropperTooltip = new Tooltip("Returns the color value of the specified pixel and changes the color picker to that value");
@@ -207,17 +291,26 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		Tooltip.install(stampTool, stampTooltip);
 	}
 	
+	/**
+	 * Initializes the font and brush size sliders, loads all system fonts into the FontPicker Combobox
+	 */
+	
 	private void initializeComponents() {
 		fontPicker.setItems(fonts);
 		fontSizeCountLabel.setText(String.valueOf((int)(fontSizePicker.getValue())));
 		brushSizePickerLabel.setText(String.valueOf((int)brushSizePicker.getValue()));
 	}
 	
+	/**
+	 * Adds event listeners to all the tools so the UI can react an update properly
+	 */
+	
 	private void initializeListeners() {
 		
 		fontSizePicker.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				fontSizeCountLabel.setText(String.valueOf((int)fontSizePicker.getValue()));	
+				gc.setLineWidth(fontSizePicker.getValue());
 			}
 		});
 		
@@ -230,6 +323,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		selectorTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
 				selectorTool.setStyle("-fx-background-color: white;");
 			}
 			else {
@@ -248,6 +346,11 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		
 		bucketTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
 				bucketTool.setStyle("-fx-background-color: white;");
 			}
 			else {
@@ -281,7 +384,55 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				stampTool.setStyle(null);
 			}
 		});
+		
+		squareTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
+				squareTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				squareTool.setStyle(null);
+			}
+		});
+		
+		triangleTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
+				triangleTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				triangleTool.setStyle(null);
+			}
+		});
+		
+		circleTool.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Not implemented");
+				alert.setHeaderText(null);
+				alert.setContentText("This feature is not yet implemented.");
+				alert.showAndWait();
+				circleTool.setStyle("-fx-background-color: white;");
+			}
+			else {
+				circleTool.setStyle(null);
+			}
+		});
+		
 	}
+	
+	/**
+	 * Initializes the canvas as well as includes the primary logic for drawing objects and pushing new images on to the undoStack so undo/redo operations can work
+	 * @see undoStack
+	 */
 	
 	private void initializeCanvas() {
 		gc = drawZone.getGraphicsContext2D();
@@ -296,12 +447,16 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		drawZone.setOnMousePressed(e -> {
 			if(brushTool.isSelected()) {
 				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage snapshot = scaleUpImage(drawZone, 2);
 				undoStack.push(snapshot);
 				gc.setStroke(colorPicker.getValue());
 				gc.beginPath();
 				gc.lineTo(e.getX(), e.getY());
 			}
 			else if(eraserTool.isSelected()) {
+				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage snapshot = scaleUpImage(drawZone, 2);
+				undoStack.push(snapshot);
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
 			}
@@ -309,6 +464,19 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
 				colorPicker.getCustomColors().add(snapshot.getPixelReader().getColor((int)e.getX(), (int)e.getY()));
 				colorPicker.setValue(snapshot.getPixelReader().getColor((int)e.getX(), (int)e.getY()));
+			}
+			else if(stampTool.isSelected()) {
+				//TODO
+				//create the textbox at starting coordinate
+				Image snapshot = drawZone.snapshot(new SnapshotParameters(), null);
+				//WritableImage snapshot = scaleUpImage(drawZone, 2);
+				undoStack.push(snapshot);
+				gc.setLineWidth(1);
+				gc.setFont(Font.font(fontPicker.getValue(), fontSizePicker.getValue()));
+				System.out.println(fontSizePicker.getValue());
+				gc.setStroke(colorPicker.getValue());
+				gc.setFill(colorPicker.getValue());
+				gc.fillText(stampText.getText(), e.getX(), e.getY());
 			}
 		});
 		
@@ -320,6 +488,9 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 			else if(eraserTool.isSelected()) {
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
+			}
+			else if(stampTool.isSelected()) {
+				//resize the text box to the new mouse coordinates
 			}
 		});
 		
@@ -333,13 +504,23 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 				double lineWidth = gc.getLineWidth();
 				gc.clearRect((e.getX() - (lineWidth / 2)), (e.getY() - (lineWidth / 2)), lineWidth, lineWidth);
 			}
+			else if(stampTool.isSelected()) {
+				//set focus to the text box, allow user to type and apply the proper font settings
+			}
 		});
 	}
-	
+
+	/**
+	 * Logic responsible for switching the MainView to the SettingsView so themes can be applied.
+	 * @param event fired by clicking on the object
+	 * @throws IOException if the CSS or FXML file cannot be found
+	 */
 	public void settingsButtonPushed(ActionEvent event) throws IOException {
+		
 		FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("/application/view/PhotonSettings.fxml"));
 		Parent settingsViewParent = settingsLoader.load();
 		Scene settingsViewScene = new Scene(settingsViewParent);
+		settingsViewScene.getStylesheets().add(getClass().getResource("/css/dark.css").toExternalForm());
 		
 		//gets stage information
 		Stage window = (Stage) circleTool.getScene().getWindow();
@@ -347,8 +528,17 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		window.setScene(settingsViewScene);
 		window.setTitle("Settings");
 		window.show();
+		
 	}
 	
+	/**
+	 * Scales down an image so it fits properly on the canvas and maintains aspect ratio
+	 * @param sourceImg The source image being loaded from the disk
+	 * @param targetWidth The width to be applied to the image, ideally the same as canvas width or smaller
+	 * @param targetHeight The height to be applied to the image, ideally the same as canvas height or smaller
+	 * @param preserveRatio true if the image ratio should be preserved so it doesn't look stretched
+	 * @return Image that has been scaled down to the canvas dimensions
+	 */
 	private Image scaleImage(Image sourceImg, int targetWidth, int targetHeight, boolean preserveRatio) {
 		ImageView imageView = new ImageView(sourceImg);
 		imageView.setPreserveRatio(preserveRatio);
@@ -357,7 +547,44 @@ public class PhotonMainController implements EventHandler<ActionEvent> {
 		return imageView.snapshot(null, null);
 	}
 	
-	private Image scaleUpImage(Node node, int scale) {
+	
+	/**
+	 * Currently not used/working. The undo/redo operations suffer from quality loss because of how snapshotting a canvas works. Any screen higher than 256 dpi will experience this loss of quality.
+	 * @param canvas the canvas used to draw images to
+	 * @param pixelScale the multiplier to upscale images
+	 * @return WritableImage that has been scaled up without losing quality
+	 */
+	private WritableImage scaleUpImage(Canvas canvas, double pixelScale) {
+		WritableImage img = new WritableImage((int)Math.rint(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
+		SnapshotParameters params = new SnapshotParameters();
+		params.setTransform(Transform.scale(pixelScale, pixelScale));
+		System.out.println(img.getWidth() + " " + img.getHeight());
+		return canvas.snapshot(params, img);
+	}
+	
+	/**
+	 * Alternative implementation
+	 * Currently not used/working. The undo/redo operations suffer from quality loss because of how snapshotting a canvas works. Any screen higher than 256 dpi will experience this loss of quality.
+	 * @param canvas the canvas used to draw images to
+	 * @param pixelScale the multiplier to upscale images
+	 */
+	private void scaleUpImageTest(Canvas canvas, double pixelScale) {
+		WritableImage img = new WritableImage((int)Math.rint(pixelScale*canvas.getWidth()), (int)Math.rint(pixelScale*canvas.getHeight()));
+		SnapshotParameters params = new SnapshotParameters();
+		params.setTransform(Transform.scale(pixelScale, pixelScale));
+		System.out.println(img.getWidth() + " " + img.getHeight());
+		Image test = canvas.snapshot(params, img);
+		
+	}
+	
+	/**
+	 * Test implementation of scaleUpImage and scaleUpImageTest
+	 * @param node the source node containing the image you want to scale, in this case, the canvas
+	 * @param scale the multiplier used to upscale the images
+	 * @return Image that has been scaled up without losing quality
+	 */
+	private Image scaleUpImage2(Node node, int scale) {
+		
 		final Bounds bounds = node.getLayoutBounds();
 
 		System.out.println(bounds.getWidth() + " " + bounds.getHeight());
